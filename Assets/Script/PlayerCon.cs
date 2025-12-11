@@ -30,14 +30,11 @@ public class PlayerCon : MonoBehaviour
 
     void Update()
     {
-
-
         if (_playerInput.actions["fire"].IsPressed())
         {
             if (Time.frameCount % 30 == 0)
             {
                 _spowaner.FireBullet();
-
             }
         }
         if (_playerInput.actions["move"].IsPressed())

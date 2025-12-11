@@ -9,6 +9,7 @@ public class bullet : MonoBehaviour
     [SerializeField] private float _returnX;
     [SerializeField] private Vector3 _returnPos;
 
+
     void Start()
     {
         _transform = GetComponent<Transform>();
@@ -20,7 +21,6 @@ public class bullet : MonoBehaviour
 
         if (_transform.position.x > _returnPos.x)
         {
-
             _bulletPool.ReturnBullet(gameObject);
         }
     }

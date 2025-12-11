@@ -5,8 +5,14 @@ public class EnemyPool : MonoBehaviour
 {
     [SerializeField] private GameObject _enemy;
     [SerializeField] private int _poolsize;
-    private readonly Queue<GameObject> _enemyPool;
+    public Queue<GameObject> _enemyPool;
 
+    public static EnemyPool instance;
+
+    private void Awake()
+    {
+       _enemyPool = new Queue<GameObject>();
+    }
     void Start()
     {
         InstantiateEnemyPoll();
@@ -20,15 +26,15 @@ public class EnemyPool : MonoBehaviour
         for (int i = 0; i < _poolsize; i++)
         {
             GameObject enemy = Instantiate(_enemy);//生成
-            enemy.SetActive(false);//非アクティブ
+            enemy.SetActive(true);//非アクティブ
             _enemyPool.Enqueue(enemy);//格納
         }
     }
-    private GameObject GetEnemy()
+    public GameObject GetEnemy()
     {
         GameObject getEnemy;
 
-        if (_enemyPool.Count < 0f)
+        if (_enemyPool.Count > 0f)
         {
             getEnemy = _enemyPool.Dequeue();
         }

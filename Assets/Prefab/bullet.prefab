@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 230678396080142942}
   - component: {fileID: 878283784972218237}
   - component: {fileID: 7506362456291526643}
-  - component: {fileID: -6496407750150380054}
+  - component: {fileID: -2413579622032788867}
   m_Layer: 0
   m_Name: bullet
   m_TagString: Untagged
@@ -122,10 +122,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 533d8689680320347a9d4bb760d8394f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _amoSpeesd: 2
+  _bulletSpeesd: 2
   _returnX: 10
   _returnPos: {x: 0, y: 0, z: 0}
---- !u!114 &-6496407750150380054
+--- !u!114 &-2413579622032788867
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -134,9 +134,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 8407100641498539348}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ec09055e3a6b8345b50fafa29abd6ea, type: 3}
+  m_Script: {fileID: 11500000, guid: 57d6a4a9d32731b45b69292f71b3ea7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyTarget:
-  - {fileID: 1654541241418633582, guid: 8ff5e32ada5c7444987a2754ad20e6be, type: 3}
-  _enemySize: {x: 1, y: 1}
+  _enemy: []
+  hitRadius: 1

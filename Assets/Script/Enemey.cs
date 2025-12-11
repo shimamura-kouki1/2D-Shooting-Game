@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Enemey : MonoBehaviour
@@ -7,18 +8,18 @@ public class Enemey : MonoBehaviour
     [SerializeField] private float _enemySpeed;
     [SerializeField] private float _enemyDistance;
 
+    [SerializeField] private HIT2 _Aaa;
+
     private Transform _tr;
 
     void Start()
     {
+        StartCoroutine(ListAdd());
         _tr = GetComponent<Transform>();
     }
-    void Update()
+    IEnumerator ListAdd()
     {
-        
-    }
-    private void Hit()
-    {
-        
+        yield return new WaitForSeconds(2);
+        _Aaa._enemyList.Add(this.gameObject);
     }
 }

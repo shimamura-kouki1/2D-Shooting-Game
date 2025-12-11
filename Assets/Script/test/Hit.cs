@@ -1,10 +1,11 @@
 using NUnit.Framework;
 using UnityEngine;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
 public class Hit : MonoBehaviour
 {
-    [SerializeField] private List<Transform> _enemyTarget;
+    [SerializeField] private List<GameObject> _enemyTarget;
     [SerializeField] private Vector2 _enemySize;
 
     private Transform _tr;
@@ -12,6 +13,8 @@ public class Hit : MonoBehaviour
     private void Start()
     {
         _tr = GetComponent<Transform>();
+
+
     }
     void Update()
     {
@@ -23,7 +26,7 @@ public class Hit : MonoBehaviour
             if (Mathf.Abs(myPos.x - targetPos.x) <= (_enemySize.x / 2f + 0.5f) &&
                 Mathf.Abs(myPos.y - targetPos.y) <= (_enemySize.y / 2f + 0.5f))
             {
-
+                Destroy(this.gameObject);
             }
         }
     }
