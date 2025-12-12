@@ -44,7 +44,7 @@ public class EnemyPool : MonoBehaviour
         }
         getEnemy.SetActive(true);
 
-        var enemyComponent = getEnemy.GetComponent<Enemey>();
+        var enemyComponent = getEnemy.GetComponent<Enemy>();
         enemyComponent._enemyPool = this;
         return getEnemy;
     }

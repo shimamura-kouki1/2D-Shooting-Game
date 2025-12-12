@@ -9,6 +9,17 @@ public class bullet : MonoBehaviour
     [SerializeField] private float _returnX;
     [SerializeField] private Vector3 _returnPos;
 
+    public void OnEnable()
+    {
+        HitManeger.Instance._bullet.Add(this);
+    }
+    public void OnDisable()
+    {
+        if(HitManeger.Instance != null)
+        {
+            HitManeger.Instance._bullet.Remove(this);
+        }
+    }
 
     void Start()
     {
@@ -23,5 +34,9 @@ public class bullet : MonoBehaviour
         {
             _bulletPool.ReturnBullet(gameObject);
         }
+    }
+    public void ReturnPool()
+    {
+        _bulletPool.ReturnBullet(gameObject);
     }
 }
