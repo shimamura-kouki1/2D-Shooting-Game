@@ -1,9 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Search;
 using UnityEngine;
 
-public class bulletPool : MonoBehaviour
+public class BulletPool : MonoBehaviour
 {
     [SerializeField] private GameObject _bullet;
     [SerializeField] private int _poolSize;
@@ -42,7 +40,7 @@ public class bulletPool : MonoBehaviour
 
         bulletGet.SetActive(true);
 
-        var bulletComponent = bulletGet.GetComponent<bullet>();
+        var bulletComponent = bulletGet.GetComponent<Bullet>();
         bulletComponent._bulletPool = this;
 
         return bulletGet;

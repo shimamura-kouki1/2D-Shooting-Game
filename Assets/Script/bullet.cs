@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class bullet : MonoBehaviour
+public class Bullet : MonoBehaviour
 {
-    public bulletPool _bulletPool { get; set; }
+    public BulletPool _bulletPool { get; set; }
 
     [SerializeField] private float _bulletSpeesd;
     private Transform _transform;

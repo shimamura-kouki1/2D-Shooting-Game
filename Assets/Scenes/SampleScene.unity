@@ -526,6 +526,7 @@ GameObject:
   - component: {fileID: 545753733}
   - component: {fileID: 545753731}
   - component: {fileID: 545753730}
+  - component: {fileID: 545753736}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -547,7 +548,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _moveSpeed: 6.81
   _Player: 0
-  maxX: -5
+  maxX: 8.25
   maxY: 4.5
   miniX: -8
   miniY: -4.5
@@ -650,6 +651,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &545753736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 545753729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c2b3285ed6cc0f47a519448ce79bd83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &816085885
 GameObject:
   m_ObjectHideFlags: 0
@@ -1251,7 +1264,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 757af46502e29bc47831d7ba7791854a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bullet: {fileID: 8407100641498539348, guid: e0bfc2ed4ed6d7944bb0de1136b7aacb, type: 3}
+  _bullet: {fileID: 403139828447817059, guid: 5f2eed0709be8b2449cb750369a37825, type: 3}
   _poolSize: 50
 --- !u!4 &1888840389
 Transform:
@@ -1362,13 +1375,13 @@ SceneRoots:
   - {fileID: 330585546}
   - {fileID: 410087041}
   - {fileID: 832575519}
+  - {fileID: 1823243505}
   - {fileID: 545753735}
   - {fileID: 1888840389}
   - {fileID: 1555510033}
   - {fileID: 1600428160}
   - {fileID: 985185345}
   - {fileID: 1899671392}
-  - {fileID: 1823243505}
   - {fileID: 831800546}
   - {fileID: 1065229641}
   - {fileID: 1068179883}

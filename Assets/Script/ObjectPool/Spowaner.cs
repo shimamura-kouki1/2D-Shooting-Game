@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Spowaner : MonoBehaviour
 {
-    [SerializeField] private bulletPool _bulletPool;
+    [SerializeField] private BulletPool _bulletPool;
 
     [SerializeField] private Transform _playrePos;
     public void FireBullet()

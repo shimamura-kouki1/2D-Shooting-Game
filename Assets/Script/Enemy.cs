@@ -13,8 +13,17 @@ public class Enemy : MonoBehaviour
 
     private Transform _tr;
 
+    public void OnDisable()
+    {
+        if (HitManeger.Instance != null)
+        {
+            HitManeger.Instance._enemy.Remove(this);
+        }
+    }
+
     void Start()
     {
+        HitManeger.Instance._enemy.Add(this);
         _tr = GetComponent<Transform>();
     }
 }
