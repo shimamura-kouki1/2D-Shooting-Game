@@ -1,3 +1,4 @@
+using System.Buffers.Text;
 using System.Collections;
 using UnityEngine;
 
@@ -9,7 +10,8 @@ public class Enemy : MonoBehaviour,IResettable
     [Header("Wave Move")]
     [SerializeField] private float _waveAmplitude = 1f;
     [SerializeField] private float _waveFrequency = 2f;
-    [SerializeField, Range(0f, 1f)]
+    private float baseY;
+    private float time;
 
     public EnemyPool _enemyPool { get; set; }
 
@@ -33,12 +35,29 @@ public class Enemy : MonoBehaviour,IResettable
     {
         ResettableRegistry.Unregister(this);
     }
+    void Start()
+    {
+        baseY = transform.position.y;
+    }
 
-   
+
     private void Update()
     {
         if (GameManeger.Instance.CurrentState != GameState.Playing)
             return;
+
+        WaveMove();
+
+    }
+
+    private void WaveMove()
+    {
+        time += Time.deltaTime;
+
+        float x = transform.position.x - _enemySpeed * Time.deltaTime;
+        float y = baseY + Mathf.Sin(time * _waveFrequency) * _waveAmplitude;
+
+        transform.position = new Vector3(x, y, transform.position.z);
     }
 
     public void SaveInitialState()
