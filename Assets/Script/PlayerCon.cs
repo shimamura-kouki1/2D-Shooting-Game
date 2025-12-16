@@ -1,8 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static UnityEditor.Searcher.SearcherWindow.Alignment;
 
-public class PlayerCon : MonoBehaviour
+public class PlayerCon : MonoBehaviour,IResettable
 {
     [SerializeField] private float _moveSpeed;
     [SerializeField] private float _Player;
@@ -13,23 +12,35 @@ public class PlayerCon : MonoBehaviour
     private InputAction _move;
     private PlayerInput _playerInput;
     private Vector2 _horizontar;
-    private Vector3 _playerPos;
 
     private Transform _tr;
 
+    private Vector3 _initialPosition;
+
     [SerializeField] Spowaner _spowaner;
 
+    void Awake()
+    {
+        _tr = GetComponent<Transform>();
+        _playerInput = GetComponent<PlayerInput>();
+        _move = _playerInput.actions["move"];
+        Application.targetFrameRate = 60;
+        ResettableRegistry.Register(this);
+    }
     void Start()
     {
-        _playerInput = GetComponent<PlayerInput>();
-        _tr = GetComponent<Transform>();
-        _move = _playerInput.actions["move"];
+        SaveInitialState();
+    }
 
-        Application.targetFrameRate = 60;
+    void OnDestroy()
+    {
+        ResettableRegistry.Unregister(this);
     }
 
     void Update()
     {
+        if (GameManeger.Instance.CurrentState != GameState.Playing)
+            return;
         if (_playerInput.actions["fire"].IsPressed())
         {
             if (Time.frameCount % 30 == 0)
@@ -46,5 +57,15 @@ public class PlayerCon : MonoBehaviour
                                        Mathf.Clamp(Y, miniY, maxY),
                                        0f);
         }
+    }
+    public void SaveInitialState()
+    {
+        _initialPosition = _tr.position;
+    }
+
+    public void ResetToInitialState()
+    {
+        gameObject.SetActive(true);
+        _tr.position = _initialPosition;
     }
 }

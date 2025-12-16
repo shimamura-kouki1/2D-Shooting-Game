@@ -12,7 +12,7 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        GameState gameState = GameState.Playing;
+        GameState gameState = GameManeger.Instance.CurrentState;
 
         _titleUI.SetActive(gameState == GameState.Titel);
         _pauseUI.SetActive(gameState == GameState.Pause);

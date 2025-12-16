@@ -34,6 +34,7 @@ public class PlayerHit : MonoBehaviour
             if(HitDistance)
             {
                 Die();
+                
                 break;
             }
         }
@@ -43,5 +44,7 @@ public class PlayerHit : MonoBehaviour
         _isDeth = true;
 
         gameObject.SetActive(false);
+
+        GameManeger.Instance.PlayerDead();
     }
 }

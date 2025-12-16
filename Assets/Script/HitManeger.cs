@@ -2,7 +2,7 @@ using NUnit.Framework;
 using UnityEngine;
 using System.Collections.Generic;
 
-public class HitManeger : MonoBehaviour
+public class HitManeger : MonoBehaviour,IResettable
 {
     public static HitManeger Instance;
 
@@ -14,9 +14,16 @@ public class HitManeger : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        ResettableRegistry.Register(this);
+    }
+    void OnDestroy()
+    {
+        ResettableRegistry.Unregister(this);
     }
     void Update()
     {
+        if (GameManeger.Instance.CurrentState != GameState.Playing)
+            return;
         HitChek();
     }
     private void HitChek()
@@ -29,6 +36,10 @@ public class HitManeger : MonoBehaviour
             for (int k = _enemy.Count - 1; k >= 0; k--)
             {
                 Enemy enemy = _enemy[k];
+
+                if (!enemy.gameObject.activeInHierarchy)
+                    continue;
+
                 Vector2 enemyPos = enemy.transform.position;
 
                 Vector2 distance = bulletPos - enemyPos;//‹——£‚ÅŒvŽZ‚µ‚Æ‚é
@@ -40,11 +51,27 @@ public class HitManeger : MonoBehaviour
                 {
                     bullet.ReturnPool();
                     enemy.gameObject.SetActive(false);
+
+                    _bullet.RemoveAt(i);
                     break;
                 }
             }
 
         }
 
+    }
+    public void SaveInitialState()
+    {
+        return;
+    }
+    public void ResetToInitialState()
+    {
+        _bullet.Clear();
+        _enemy.Clear();
+        foreach (var enemy in FindObjectsOfType<Enemy>())
+        {
+            if (enemy.gameObject.activeInHierarchy)
+                _enemy.Add(enemy);
+        }
     }
 }
