@@ -22,6 +22,9 @@ public class Enemy2 : MonoBehaviour
     private float time;      // sin波用時間
     private bool _wasActive; // 前フレームで active だったか
     private bool _useWave;
+
+    [SerializeField] public float _halfWidth = 0.5f;
+    [SerializeField] public float _halfHeight = 0.5f;
     void Start()
     {
         gameObject.SetActive(false);

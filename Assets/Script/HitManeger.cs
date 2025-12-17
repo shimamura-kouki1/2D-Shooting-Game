@@ -7,7 +7,7 @@ public class HitManeger : MonoBehaviour,IResettable
     public static HitManeger Instance;
 
     public List<Bullet> _bullet = new List<Bullet>();
-    public List<Enemy> _enemy = new List<Enemy>();
+    public List<Enemy2> _enemy = new List<Enemy2>();
 
     private Transform _tr;
 
@@ -35,7 +35,7 @@ public class HitManeger : MonoBehaviour,IResettable
 
             for (int k = _enemy.Count - 1; k >= 0; k--)
             {
-                Enemy enemy = _enemy[k];
+                Enemy2 enemy = _enemy[k];
 
                 if (!enemy.gameObject.activeInHierarchy)
                     continue;
