@@ -599,6 +599,8 @@ MonoBehaviour:
   _spawnX: 10
   _outX: -10
   _spawnYRange: {x: -4, y: 4}
+  _halfWidth: 0.5
+  _halfHeight: 0.5
 --- !u!1 &397134723
 GameObject:
   m_ObjectHideFlags: 0
@@ -876,6 +878,8 @@ MonoBehaviour:
   _spawnX: 10
   _outX: -10
   _spawnYRange: {x: -4, y: 4}
+  _halfWidth: 0.5
+  _halfHeight: 0.5
 --- !u!1 &535814773 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3837014075354530835, guid: ab388014fe2d07a45990763d2285d09d, type: 3}
@@ -899,6 +903,8 @@ MonoBehaviour:
   _spawnX: 10
   _outX: -10
   _spawnYRange: {x: -4, y: 4}
+  _halfWidth: 0.5
+  _halfHeight: 0.5
 --- !u!1 &545753729
 GameObject:
   m_ObjectHideFlags: 0
@@ -1147,6 +1153,8 @@ MonoBehaviour:
   _spawnX: 10
   _outX: -10
   _spawnYRange: {x: -4, y: 4}
+  _halfWidth: 0.5
+  _halfHeight: 0.5
 --- !u!1 &777844309 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3837014075354530835, guid: ab388014fe2d07a45990763d2285d09d, type: 3}
@@ -1170,6 +1178,8 @@ MonoBehaviour:
   _spawnX: 10
   _outX: -10
   _spawnYRange: {x: -4, y: 4}
+  _halfWidth: 0.5
+  _halfHeight: 0.5
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -1534,6 +1544,8 @@ MonoBehaviour:
   _spawnX: 10
   _outX: -10
   _spawnYRange: {x: -4, y: 4}
+  _halfWidth: 0.5
+  _halfHeight: 0.5
 --- !u!1 &1399329566
 GameObject:
   m_ObjectHideFlags: 0
@@ -2098,6 +2110,8 @@ MonoBehaviour:
   _spawnX: 10
   _outX: -10
   _spawnYRange: {x: -4, y: 4}
+  _halfWidth: 0.5
+  _halfHeight: 0.5
 --- !u!114 &1688314041
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2116,6 +2130,8 @@ MonoBehaviour:
   _spawnX: 10
   _outX: -10
   _spawnYRange: {x: -4, y: 4}
+  _halfWidth: 0.5
+  _halfHeight: 0.5
 --- !u!1 &1823243503
 GameObject:
   m_ObjectHideFlags: 0
