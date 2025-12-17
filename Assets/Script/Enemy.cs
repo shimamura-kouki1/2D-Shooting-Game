@@ -71,4 +71,9 @@ public class Enemy : MonoBehaviour,IResettable
         gameObject.SetActive(_initialActive); 
         _tr.position = _initialPosition;
     }
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red; // ギズモの色を設定
+        Gizmos.DrawWireSphere(transform.position, 1.0f); // ワイヤーフレームの球体を描画
+    }
 }

@@ -22,6 +22,13 @@ public class Enemy2 : MonoBehaviour
     private float time;      // sin波用時間
     private bool _wasActive; // 前フレームで active だったか
     private bool _useWave;
+    private bool _setActive = false;
+    private Vector3 _stratPos = new Vector3(30f, 30f, 30f);
+
+    [SerializeField] public float _halfWidth = 0.5f;
+    [SerializeField] public float _halfHeight = 0.5f;
+
+
     void Start()
     {
         gameObject.SetActive(false);
@@ -32,11 +39,19 @@ public class Enemy2 : MonoBehaviour
         if (GameManeger.Instance.CurrentState == GameState.Titel)
         {
             gameObject.SetActive(false);
-            _wasActive = false; 
+            _wasActive = false;
+            _setActive = false;
+            transform.position = _stratPos;
             return;
         }
         if (GameManeger.Instance.CurrentState != GameState.Playing)
             return;
+
+        if (!_setActive)
+        {
+            HitManeger.Instance._enemy.Add(this);
+            _setActive = true;
+        }
 
         if (!_wasActive && gameObject.activeSelf)
         {
@@ -94,6 +109,8 @@ public class Enemy2 : MonoBehaviour
         if (transform.position.x < _outX)
         {
             gameObject.SetActive(false);
+            transform.position = _stratPos;
+            _setActive = false;
         }
     }
 }

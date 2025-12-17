@@ -1,4 +1,3 @@
-using NUnit.Framework;
 using UnityEngine;
 using System.Collections.Generic;
 
@@ -7,7 +6,7 @@ public class HitManeger : MonoBehaviour,IResettable
     public static HitManeger Instance;
 
     public List<Bullet> _bullet = new List<Bullet>();
-    public List<Enemy> _enemy = new List<Enemy>();
+    public List<Enemy2> _enemy = new List<Enemy2>();
 
     private Transform _tr;
 
@@ -22,6 +21,11 @@ public class HitManeger : MonoBehaviour,IResettable
     }
     void Update()
     {
+        if (GameManeger.Instance.CurrentState == GameState.Titel)
+        {
+            ListReset();
+        }
+
         if (GameManeger.Instance.CurrentState != GameState.Playing)
             return;
         HitChek();
@@ -35,10 +39,10 @@ public class HitManeger : MonoBehaviour,IResettable
 
             for (int k = _enemy.Count - 1; k >= 0; k--)
             {
-                Enemy enemy = _enemy[k];
+                Enemy2 enemy = _enemy[k];
 
-                if (!enemy.gameObject.activeInHierarchy)
-                    continue;
+                //if (!enemy.gameObject.activeInHierarchy)
+                //    continue;
 
                 Vector2 enemyPos = enemy.transform.position;
 
@@ -52,7 +56,9 @@ public class HitManeger : MonoBehaviour,IResettable
                     bullet.ReturnPool();
                     enemy.gameObject.SetActive(false);
 
-                    _bullet.RemoveAt(i);
+                    enemy.transform.position = new Vector3(30, 30, 30);
+
+                    //_bullet.RemoveAt(i);
                     break;
                 }
             }
@@ -60,6 +66,14 @@ public class HitManeger : MonoBehaviour,IResettable
         }
 
     }
+
+    public void ListReset()//List‚ÌƒŠƒZƒbƒg
+    {
+        _bullet.Clear();
+        _enemy.Clear();
+    }
+
+
     public void SaveInitialState()
     {
         return;
@@ -68,7 +82,7 @@ public class HitManeger : MonoBehaviour,IResettable
     {
         _bullet.Clear();
         _enemy.Clear();
-        foreach (var enemy in FindObjectsOfType<Enemy>())
+        foreach (var enemy in FindObjectsOfType<Enemy2>())
         {
             if (enemy.gameObject.activeInHierarchy)
                 _enemy.Add(enemy);

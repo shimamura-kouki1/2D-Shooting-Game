@@ -19,6 +19,7 @@ public class EnemySpawner : MonoBehaviour
             {
                 _enemies[_index].gameObject.SetActive(true);
                 _index = (_index + 1) % _enemies.Length;
+
             }
 
             yield return new WaitForSeconds(_spawnInterval);

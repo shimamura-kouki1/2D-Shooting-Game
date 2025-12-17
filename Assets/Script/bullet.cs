@@ -34,6 +34,10 @@ public class Bullet : MonoBehaviour
         {
             _bulletPool.ReturnBullet(gameObject);
         }
+        if (GameManeger.Instance.CurrentState == GameState.Titel)
+        {
+            _bulletPool.ReturnBullet(gameObject);
+        }
     }
     public void ReturnPool()
     {

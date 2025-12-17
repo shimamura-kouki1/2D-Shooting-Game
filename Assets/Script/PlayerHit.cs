@@ -15,6 +15,7 @@ public class PlayerHit : MonoBehaviour
     }
     void Update()
     {
+        Resuscitation();
         if (_isDeth) return;
         PlayerHitChek();
     }
@@ -23,7 +24,7 @@ public class PlayerHit : MonoBehaviour
         Vector2 PlayerPos = _tr.position;
         for (int i = HitManeger.Instance._enemy.Count - 1; i >= 0; i--)
         {
-            Enemy enemy = HitManeger.Instance._enemy[i];
+            Enemy2 enemy = HitManeger.Instance._enemy[i];
             Vector2 enemyPos = enemy.transform.position;
 
             Vector2 distance = enemyPos - PlayerPos;
@@ -31,10 +32,10 @@ public class PlayerHit : MonoBehaviour
             bool HitDistance = Mathf.Abs(distance.x) < (enemy._halfWidth + _playerHalfWidth) &&
                                Mathf.Abs(distance.y) < (enemy._halfHeight + _PlayerHalfHeight);
 
-            if(HitDistance)
+            if (HitDistance)
             {
                 Die();
-                
+
                 break;
             }
         }
@@ -46,5 +47,12 @@ public class PlayerHit : MonoBehaviour
         gameObject.SetActive(false);
 
         GameManeger.Instance.PlayerDead();
+    }
+    private void Resuscitation()
+    {
+        if(GameManeger.Instance.CurrentState == GameState.Titel)
+        {
+            _isDeth = false;
+        }
     }
 }
