@@ -485,7 +485,7 @@
                 {
                     "name": "",
                     "id": "88612662-a862-466e-aff2-05e8a560ea03",
-                    "path": "<Mouse>/leftButton",
+                    "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
