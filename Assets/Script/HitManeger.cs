@@ -59,7 +59,7 @@ public class HitManeger : MonoBehaviour,IResettable
                     }
                     bullet.ReturnPool();
 
-                    enemy.transform.position = new Vector3(30, 30, 30);
+
 
                     //_bullet.RemoveAt(i);
                     break;

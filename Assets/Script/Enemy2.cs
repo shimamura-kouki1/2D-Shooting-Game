@@ -1,7 +1,7 @@
 using NUnit.Framework.Internal;
 using UnityEngine;
 
-public class Enemy2 : MonoBehaviour,IHittable
+public class Enemy2 : MonoBehaviour, IHittable
 {
 
     [Header("Move")]
@@ -19,6 +19,15 @@ public class Enemy2 : MonoBehaviour,IHittable
     [SerializeField] private Vector2 _spawnYRange = new Vector2(-4f, 4f); // 出現Y範囲
 
     [SerializeField] private GameObject _hitEffect;
+
+    [Header("Death Animation")]
+    [SerializeField] private SpriteRenderer _renderer;
+    [SerializeField] private Sprite[] _deathSprites;
+    [SerializeField] private float _deathFrameTime = 0.1f;
+
+    private bool _isDead = false;
+    private int _deathIndex = 0;
+    private float _deathTimer = 0f;
 
 
     private float baseY;     // 波の中心Y
@@ -50,6 +59,11 @@ public class Enemy2 : MonoBehaviour,IHittable
         if (GameManeger.Instance.CurrentState != GameState.Playing)
             return;
 
+        if (_isDead)
+        {
+            DeathAnimation();
+            return; // ← 死亡中は他の処理を止める
+        }
         if (!_setActive)
         {
             HitManeger.Instance._enemy.Add(this);
@@ -61,7 +75,7 @@ public class Enemy2 : MonoBehaviour,IHittable
             OnActivated();
         }
 
-        if (gameObject.activeSelf)
+        if (gameObject.activeSelf && !_isDead)
         {
             CheckOutOfScreen();
 
@@ -72,7 +86,7 @@ public class Enemy2 : MonoBehaviour,IHittable
 
         }
         _wasActive = gameObject.activeSelf;
-      
+
     }
 
 
@@ -88,7 +102,7 @@ public class Enemy2 : MonoBehaviour,IHittable
         baseY = y;
         time = 0f;
 
-        _useWave = Random.Range(0, 2) == 0; 
+        _useWave = Random.Range(0, 2) == 0;
     }
     private void Move()
     {
@@ -123,13 +137,52 @@ public class Enemy2 : MonoBehaviour,IHittable
     /// <param name="bullet"></param>
     public void OnHit(Bullet bullet)
     {
+        if (_deathSprites == null || _deathSprites.Length == 0)
+        {
+            Debug.LogError("Enemy2: DeathSprites が設定されていません", this);
+            ResetEnemy();
+            return;
+        }
         // ヒットエフェクト
         HitEffectAuto effect = Instantiate(_hitEffect).GetComponent<HitEffectAuto>();
         effect.Play(transform.position);
 
-        // 死亡・回収
-        gameObject.SetActive(false);
 
-        transform.position = new Vector3(30, 30, 30);
+        // 死亡演出開始
+        _isDead = true;
+        _deathIndex = 0;
+        _deathTimer = 0f;
+        _renderer.sprite = _deathSprites[0];
+    }
+
+    private void DeathAnimation()
+    {
+        _deathTimer += Time.deltaTime;
+
+        if (_deathTimer >= _deathFrameTime)
+        {
+            _deathTimer = 0f;
+            _deathIndex++;
+
+            if (_deathIndex >= _deathSprites.Length)
+            {
+                // アニメーション終了
+                ResetEnemy();
+                return;
+            }
+
+            _renderer.sprite = _deathSprites[_deathIndex];
+        }
+    }
+    private void ResetEnemy()
+    {
+        _isDead = false;
+        _setActive = false;
+        _wasActive = false;
+        _deathIndex = 0;
+        _deathTimer = 0f;
+
+        transform.position = _stratPos;
+        gameObject.SetActive(false);
     }
 }
