@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class PlayerCon : MonoBehaviour,IResettable
 {
@@ -18,6 +19,10 @@ public class PlayerCon : MonoBehaviour,IResettable
     private Vector3 _initialPosition;
 
     [SerializeField] Spowaner _spowaner;
+
+    [SerializeField] Image _image;
+    [SerializeField] Sprite[] _idleSprites;
+    private int _index = 0;
 
     void Awake()
     {
@@ -41,6 +46,8 @@ public class PlayerCon : MonoBehaviour,IResettable
     {
         if (GameManeger.Instance.CurrentState != GameState.Playing)
             return;
+
+
         if (_playerInput.actions["fire"].IsPressed())
         {
             if (Time.frameCount % 30 == 0)
@@ -48,7 +55,7 @@ public class PlayerCon : MonoBehaviour,IResettable
                 _spowaner.FireBullet();
             }
         }
-        if (_playerInput.actions["move"].IsPressed())
+        if (_move.IsPressed())
         {
             _horizontar = _move.ReadValue<Vector2>();
             float Y = _tr.position.y + _horizontar.y * _moveSpeed * Time.deltaTime;
@@ -67,5 +74,14 @@ public class PlayerCon : MonoBehaviour,IResettable
     {
         gameObject.SetActive(true);
         _tr.position = _initialPosition;
+    }
+
+    public void IdleMotion()
+    {
+        if (!_move.IsPressed())
+        {
+            _index = (_index+1) % _idleSprites.Length;
+            _image.sprite = _idleSprites[_index];
+        }
     }
 }

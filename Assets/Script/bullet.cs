@@ -4,6 +4,7 @@ public class Bullet : MonoBehaviour
 {
     public BulletPool _bulletPool { get; set; }
 
+
     [SerializeField] private float _bulletSpeesd;
     private Transform _transform;
     [SerializeField] private float _returnX;
