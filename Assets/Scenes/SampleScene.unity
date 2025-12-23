@@ -964,7 +964,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1934776366, guid: 16a4bac685f78a5409f05c36bdef6cf4, type: 3}
+  m_Sprite: {fileID: -1206320641, guid: 25774973ea9aaac4f9b09d7c4242dbdf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -972,7 +972,7 @@ SpriteRenderer:
   m_Size: {x: 0.3, y: 0.34}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &545753729
@@ -1015,6 +1015,14 @@ MonoBehaviour:
   miniX: -8
   miniY: -4.5
   _spowaner: {fileID: 1888840387}
+  _renderer: {fileID: 545753738}
+  _idleSprites:
+  - {fileID: -905696391, guid: 63b653eb714f9a44ba3dac4f89e872b2, type: 3}
+  - {fileID: 123540157, guid: 63b653eb714f9a44ba3dac4f89e872b2, type: 3}
+  - {fileID: -973770923, guid: 63b653eb714f9a44ba3dac4f89e872b2, type: 3}
+  - {fileID: -545193693, guid: 63b653eb714f9a44ba3dac4f89e872b2, type: 3}
+  - {fileID: 531684955, guid: 63b653eb714f9a44ba3dac4f89e872b2, type: 3}
+  - {fileID: 284609380, guid: 63b653eb714f9a44ba3dac4f89e872b2, type: 3}
 --- !u!114 &545753731
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2315,7 +2323,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1934776366, guid: 16a4bac685f78a5409f05c36bdef6cf4, type: 3}
+  m_Sprite: {fileID: -1206320641, guid: 25774973ea9aaac4f9b09d7c4242dbdf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -2323,7 +2331,7 @@ SpriteRenderer:
   m_Size: {x: 0.3, y: 0.34}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &1823243503
@@ -2521,9 +2529,6 @@ GameObject:
   - component: {fileID: 1888840389}
   - component: {fileID: 1888840388}
   - component: {fileID: 1888840387}
-  - component: {fileID: 1888840390}
-  - component: {fileID: 1888840392}
-  - component: {fileID: 1888840391}
   - component: {fileID: 1888840393}
   m_Layer: 0
   m_Name: Pool
@@ -2575,47 +2580,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1888840390
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1888840386}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c05a4b925af4982408964d258c7a5841, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _enemy: {fileID: 8432975381152205153, guid: 8ff5e32ada5c7444987a2754ad20e6be, type: 3}
-  _poolsize: 10
---- !u!114 &1888840391
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1888840386}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d03e80cf218c8f84bbde255ee8ff06c9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _enemyPool: {fileID: 1888840390}
-  _enemyPos: {fileID: 1555510033}
---- !u!114 &1888840392
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1888840386}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c4d31be8ffc1bb4b83942047a5fd391, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _enemySpon: {fileID: 1888840391}
 --- !u!114 &1888840393
 MonoBehaviour:
   m_ObjectHideFlags: 0

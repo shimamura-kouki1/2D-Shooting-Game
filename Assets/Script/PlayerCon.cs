@@ -20,7 +20,7 @@ public class PlayerCon : MonoBehaviour,IResettable
 
     [SerializeField] Spowaner _spowaner;
 
-    [SerializeField] Image _image;
+    [SerializeField] SpriteRenderer _renderer;
     [SerializeField] Sprite[] _idleSprites;
     private int _index = 0;
 
@@ -64,6 +64,7 @@ public class PlayerCon : MonoBehaviour,IResettable
                                        Mathf.Clamp(Y, miniY, maxY),
                                        0f);
         }
+        IdleMotion();
     }
     public void SaveInitialState()
     {
@@ -81,7 +82,7 @@ public class PlayerCon : MonoBehaviour,IResettable
         if (!_move.IsPressed())
         {
             _index = (_index+1) % _idleSprites.Length;
-            _image.sprite = _idleSprites[_index];
+            _renderer.sprite = _idleSprites[_index];
         }
     }
 }

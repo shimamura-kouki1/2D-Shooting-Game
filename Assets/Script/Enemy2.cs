@@ -17,6 +17,8 @@ public class Enemy2 : MonoBehaviour
     [SerializeField] private float _outX = -10f;    // 消えるX座標（画面左外）
     [SerializeField] private Vector2 _spawnYRange = new Vector2(-4f, 4f); // 出現Y範囲
 
+    [SerializeField] private GameObject _hitEffect;
+
 
     private float baseY;     // 波の中心Y
     private float time;      // sin波用時間
@@ -112,5 +114,19 @@ public class Enemy2 : MonoBehaviour
             transform.position = _stratPos;
             _setActive = false;
         }
+    }
+    /// <summary>
+    /// 当たった時の処理
+    /// </summary>
+    /// <param name="bullet"></param>
+    public void OnHit(Bullet bullet)
+    {
+        // ヒットエフェクト
+        Instantiate(_hitEffect, transform.position, Quaternion.identity);
+
+        // 死亡・回収
+        gameObject.SetActive(false);
+
+        transform.position = new Vector3(30, 30, 30);
     }
 }
