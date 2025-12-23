@@ -1,6 +1,7 @@
+using NUnit.Framework.Internal;
 using UnityEngine;
 
-public class Enemy2 : MonoBehaviour
+public class Enemy2 : MonoBehaviour,IHittable
 {
 
     [Header("Move")]
@@ -71,6 +72,7 @@ public class Enemy2 : MonoBehaviour
 
         }
         _wasActive = gameObject.activeSelf;
+      
     }
 
 
@@ -122,7 +124,8 @@ public class Enemy2 : MonoBehaviour
     public void OnHit(Bullet bullet)
     {
         // ヒットエフェクト
-        Instantiate(_hitEffect, transform.position, Quaternion.identity);
+        HitEffectAuto effect = Instantiate(_hitEffect).GetComponent<HitEffectAuto>();
+        effect.Play(transform.position);
 
         // 死亡・回収
         gameObject.SetActive(false);
