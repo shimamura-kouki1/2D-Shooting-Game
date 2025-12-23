@@ -53,8 +53,11 @@ public class HitManeger : MonoBehaviour,IResettable
 
                 if (HitDistance)
                 {
+                    if (enemy.TryGetComponent<IHittable>(out var hittable))
+                    {
+                        hittable.OnHit(bullet);
+                    }
                     bullet.ReturnPool();
-                    enemy.gameObject.SetActive(false);
 
                     enemy.transform.position = new Vector3(30, 30, 30);
 
