@@ -24,6 +24,8 @@ public class PlayerCon : MonoBehaviour,IResettable
     [SerializeField] Sprite[] _idleSprites;
     private int _index = 0;
 
+    [SerializeField] PlayerHit _playerHit;
+
     void Awake()
     {
         _tr = GetComponent<Transform>();
@@ -46,7 +48,8 @@ public class PlayerCon : MonoBehaviour,IResettable
     {
         if (GameManeger.Instance.CurrentState != GameState.Playing)
             return;
-
+        if (_playerHit.IsDead)
+            return;
 
         if (_playerInput.actions["fire"].IsPressed())
         {

@@ -1,9 +1,14 @@
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class PlayerHit : MonoBehaviour
 {
+    public bool IsDead => _isDeth;
+    private SpriteRenderer _renderer;
+    [SerializeField] Sprite[] _deathSprites;
+
     private float _playerHalfWidth = 0.5f;
     private float _PlayerHalfHeight = 0.5f;
     private Transform _tr;
@@ -12,11 +17,18 @@ public class PlayerHit : MonoBehaviour
     private void Start()
     {
         _tr = GetComponent<Transform>();
+        _renderer = GetComponent<SpriteRenderer>();
+
     }
     void Update()
     {
         Resuscitation();
-        if (_isDeth) return;
+        if (_isDeth)
+        {
+           // DeathAnimation();
+            return;
+        }
+
         PlayerHitChek();
     }
     private void PlayerHitChek()
@@ -42,17 +54,42 @@ public class PlayerHit : MonoBehaviour
     }
     private void Die()
     {
+        if (_isDeth) return;
         _isDeth = true;
 
-        gameObject.SetActive(false);
+        StartCoroutine(DeadSlowMotion());
 
-        GameManeger.Instance.PlayerDead();
     }
     private void Resuscitation()
     {
         if(GameManeger.Instance.CurrentState == GameState.Titel)
         {
             _isDeth = false;
+            Time.timeScale = 1f;
+            Time.fixedDeltaTime = 0.02f;
         }
+    }
+
+    private IEnumerator DeadSlowMotion()
+    {
+        float slowScale = 0.1f;
+        float deathDuration = 1f;
+        Time.timeScale = slowScale;
+        Time.fixedDeltaTime = 0.02f * slowScale;
+        float frameTime = deathDuration / _deathSprites.Length;//イメージの切り替え速度
+
+        for (int i = 0; i < _deathSprites.Length; i++)
+        {
+            _renderer.sprite = _deathSprites[i];
+            yield return new WaitForSecondsRealtime(frameTime);
+        }
+        //yield return new WaitForSecondsRealtime(deathDuration);
+
+        Time.timeScale = 1f;
+        Time.fixedDeltaTime = 0.02f;
+
+        gameObject.SetActive(false);
+
+        GameManeger.Instance.PlayerDead();
     }
 }
