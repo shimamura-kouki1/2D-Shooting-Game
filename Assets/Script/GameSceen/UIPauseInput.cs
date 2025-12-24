@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 
 public class UIPauseInput : MonoBehaviour
 {
+    [SerializeField] SEManager _seManager;
     private PlayerInput _playerInput;
 
     private InputAction _navigate;
@@ -24,7 +25,10 @@ public class UIPauseInput : MonoBehaviour
         if (_pause.WasPressedThisFrame())
         {
             if (GameManeger.Instance.CurrentState == GameState.Playing)
+            {
                 GameManeger.Instance.SetState(GameState.Pause);
+                _seManager.PoseSE();
+            }
             else if (GameManeger.Instance.CurrentState == GameState.Pause)
                 GameManeger.Instance.SetState(GameState.Playing);
         }

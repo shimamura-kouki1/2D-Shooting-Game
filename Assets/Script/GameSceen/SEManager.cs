@@ -31,12 +31,15 @@ public class SEManager : MonoBehaviour
     }
     public void GameStart()
     {
+        if(GameManeger.Instance.CurrentState == GameState.Titel)
         _unmber = 3;
         _audioSource.resource = _bgm[3];
         _audioSource.Play();
     }
     public void PoseSE()
     {
-
+        _unmber = 4;
+        _audioSource.resource = _bgm[4];
+        _audioSource.Play();
     }
 }

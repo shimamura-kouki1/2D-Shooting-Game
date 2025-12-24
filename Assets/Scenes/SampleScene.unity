@@ -375,6 +375,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firstSelectButton: {fileID: 397134723}
+  _seManager: {fileID: 1537092426}
 --- !u!1001 &240500397
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1444,7 +1445,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -15.4, y: 49.64}
+  m_AnchoredPosition: {x: -6, y: 2}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &545753736
@@ -1480,6 +1481,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 770bdcbd50d00e445952043694cfd605, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _seManager: {fileID: 1537092426}
   _pauseMenu: {fileID: 962888731}
 --- !u!212 &545753738
 SpriteRenderer:
@@ -2001,7 +2003,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &962888728
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2075,6 +2077,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _resumeCursor: {fileID: 359489970}
   _titleCursor: {fileID: 1871962235}
+  _seManager: {fileID: 1537092426}
 --- !u!1001 &1095163024
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3091,6 +3094,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: e5a5bde2be78cf94ebe8e4cd0d4e2450, type: 3}
   - {fileID: 8300000, guid: f3ef9abd749608f46a1f0563c22bef3f, type: 3}
   - {fileID: 8300000, guid: 5fd15e83e5a44bd4089d4f978fe0b466, type: 3}
+  - {fileID: 8300000, guid: b65373e819601944ca167ef04b04cbb1, type: 3}
+  - {fileID: 8300000, guid: 57133b0c3d073eb48937b729316781ac, type: 3}
 --- !u!1001 &1543867979
 PrefabInstance:
   m_ObjectHideFlags: 0

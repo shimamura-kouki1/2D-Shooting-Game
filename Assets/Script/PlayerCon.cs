@@ -3,36 +3,43 @@ using UnityEngine.InputSystem;
 
 public class PlayerCon : MonoBehaviour,IResettable
 {
+    [Header("プレイヤーの設定")]
     [SerializeField] private float _moveSpeed;
     [SerializeField] private float _Player;
+
+    [Header("移動制限")]
     [SerializeField] private float maxX;
     [SerializeField] private float maxY;
     [SerializeField] private float miniX;
     [SerializeField] private float miniY;
+
     private InputAction _move;
     private PlayerInput _playerInput;
-    private Vector2 _horizontar;
 
+    private Vector2 _horizontar;
     private Transform _tr;
 
-    private Vector3 _initialPosition;
+    private Vector3 _initialPosition;//初期位置
 
     [SerializeField] Spowaner _spowaner;
+    [SerializeField] PlayerHit _playerHit;
+    [SerializeField] SEManager _seManager;
 
+    [Header("idle")]
     [SerializeField] SpriteRenderer _renderer;
     [SerializeField] Sprite[] _idleSprites;
     private int _index = 0;
-
-    [SerializeField] PlayerHit _playerHit;
-    [SerializeField] SEManager _seManager;
 
     void Awake()
     {
         _tr = GetComponent<Transform>();
         _playerInput = GetComponent<PlayerInput>();
+
         _move = _playerInput.actions["move"];
-        Application.targetFrameRate = 60;
+
         ResettableRegistry.Register(this);
+
+        Application.targetFrameRate = 60;
     }
     void Start()
     {
@@ -46,19 +53,15 @@ public class PlayerCon : MonoBehaviour,IResettable
 
     void Update()
     {
-        if (GameManeger.Instance.CurrentState != GameState.Playing)
-            return;
-        if (_playerHit.IsDead)
-            return;
+        if (GameManeger.Instance.CurrentState != GameState.Playing)return;
+        
+        if (_playerHit.IsDead)return;
 
         if (_playerInput.actions["fire"].IsPressed())
         {
-            if (Time.frameCount % 30 == 0)
-            {
-                _seManager.ShootSE();//弾発射時のSE
-                _spowaner.FireBullet();
-            }
+            Fire();
         }
+
         if (_move.IsPressed())
         {
             _horizontar = _move.ReadValue<Vector2>();
@@ -70,17 +73,32 @@ public class PlayerCon : MonoBehaviour,IResettable
         }
         IdleMotion();
     }
+
+    private void Fire()
+    {
+        if (Time.frameCount % 30 == 0)
+        {
+            _seManager.ShootSE();//弾発射時のSE
+            _spowaner.FireBullet();
+        }
+    }
     public void SaveInitialState()
     {
         _initialPosition = _tr.position;
     }
 
+    /// <summary>
+    /// ポジションリセット
+    /// </summary>
     public void ResetToInitialState()
     {
         gameObject.SetActive(true);
         _tr.position = _initialPosition;
     }
 
+    /// <summary>
+    /// アイドルのアニメーション
+    /// </summary>
     public void IdleMotion()
     {
         if (!_move.IsPressed())

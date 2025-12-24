@@ -5,6 +5,7 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private GameObject _resumeCursor;
     [SerializeField] private GameObject _titleCursor;
 
+    [SerializeField] private SEManager _seManager;
     private int selectIndex = 0;
     private void OnEnable()
     {

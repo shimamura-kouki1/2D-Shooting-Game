@@ -4,6 +4,7 @@ using UnityEngine.EventSystems;
 public class TitleUIController : MonoBehaviour
 {
     [SerializeField] private GameObject firstSelectButton;
+    [SerializeField] private SEManager _seManager;
     private void OnEnable()
     {
         // タイトル画面が表示された瞬間に
@@ -14,6 +15,7 @@ public class TitleUIController : MonoBehaviour
     public void OnStartButton()
     {
         GameManeger.Instance.SetState(GameState.Playing);
+        _seManager.GameStart();
     }
 
 }

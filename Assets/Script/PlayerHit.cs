@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class PlayerHit : MonoBehaviour
 {
-    [Header("DeathAnimecion")]
-    public bool IsDead => _isDeth;
+    [Header("DeathAnimetion")]
+    public bool IsDead => _isDeath;
     private SpriteRenderer _renderer;
     [SerializeField] Sprite[] _deathSprites;
 
@@ -13,7 +13,7 @@ public class PlayerHit : MonoBehaviour
     private float _playerHalfWidth = 0.5f;
     private float _PlayerHalfHeight = 0.5f;
     private Transform _tr;
-    private bool _isDeth = false;
+    private bool _isDeath = false;
 
     private void Start()
     {
@@ -24,14 +24,12 @@ public class PlayerHit : MonoBehaviour
     void Update()
     {
         Resuscitation();
-        if (_isDeth)
-        {
-            return;
-        }
 
-        PlayerHitChek();
+        if (_isDeath)return;
+
+        PlayerHitCheak();
     }
-    private void PlayerHitChek()
+    private void PlayerHitCheak()
     {
         Vector2 PlayerPos = _tr.position;
         for (int i = HitManeger.Instance._enemy.Count - 1; i >= 0; i--)
@@ -54,8 +52,8 @@ public class PlayerHit : MonoBehaviour
     }
     private void Die()
     {
-        if (_isDeth) return;
-        _isDeth = true;
+        if (_isDeath) return;
+        _isDeath = true;
 
         StartCoroutine(DeadSlowMotion());
 
@@ -64,9 +62,8 @@ public class PlayerHit : MonoBehaviour
     {
         if(GameManeger.Instance.CurrentState == GameState.Titel)
         {
-            _isDeth = false;
+            _isDeath = false;
             Time.timeScale = 1f;
-            Time.fixedDeltaTime = 0.02f;
         }
     }
 
