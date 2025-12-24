@@ -55,7 +55,7 @@ public class PlayerCon : MonoBehaviour,IResettable
         {
             if (Time.frameCount % 30 == 0)
             {
-                _seManager.ShootSE();
+                _seManager.ShootSE();//’e”­ŽËŽž‚ÌSE
                 _spowaner.FireBullet();
             }
         }

@@ -40,6 +40,8 @@ public class Enemy2 : MonoBehaviour, IHittable
     [SerializeField] public float _halfWidth = 0.5f;
     [SerializeField] public float _halfHeight = 0.5f;
 
+    [SerializeField] private SEManager _seManager;
+
 
     void Start()
     {
@@ -98,6 +100,8 @@ public class Enemy2 : MonoBehaviour, IHittable
         // 指定したX座標にワープ
         transform.position = new Vector3(_spawnX, y, 0f);
 
+        _seManager.EnemySpawn();//スポーンSE
+
         // 波の初期化
         baseY = y;
         time = 0f;
@@ -147,6 +151,8 @@ public class Enemy2 : MonoBehaviour, IHittable
         HitEffectAuto effect = Instantiate(_hitEffect).GetComponent<HitEffectAuto>();
         effect.Play(transform.position);
 
+        //死亡SE
+        _seManager.DeathSE();
 
         // 死亡演出開始
         _isDead = true;
