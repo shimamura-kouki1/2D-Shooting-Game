@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
 
 public class PlayerCon : MonoBehaviour,IResettable
 {
@@ -25,6 +24,7 @@ public class PlayerCon : MonoBehaviour,IResettable
     private int _index = 0;
 
     [SerializeField] PlayerHit _playerHit;
+    [SerializeField] SEManager _seManager;
 
     void Awake()
     {
@@ -55,6 +55,7 @@ public class PlayerCon : MonoBehaviour,IResettable
         {
             if (Time.frameCount % 30 == 0)
             {
+                _seManager.ShootSE();
                 _spowaner.FireBullet();
             }
         }

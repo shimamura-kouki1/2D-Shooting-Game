@@ -1,13 +1,14 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class PlayerHit : MonoBehaviour
 {
+    [Header("DeathAnimecion")]
     public bool IsDead => _isDeth;
     private SpriteRenderer _renderer;
     [SerializeField] Sprite[] _deathSprites;
+
+    [SerializeField] SEManager _seManager;
 
     private float _playerHalfWidth = 0.5f;
     private float _PlayerHalfHeight = 0.5f;
@@ -25,7 +26,6 @@ public class PlayerHit : MonoBehaviour
         Resuscitation();
         if (_isDeth)
         {
-           // DeathAnimation();
             return;
         }
 
@@ -47,7 +47,7 @@ public class PlayerHit : MonoBehaviour
             if (HitDistance)
             {
                 Die();
-
+                _seManager.DeathSE();//Ž€–SSE
                 break;
             }
         }
@@ -83,7 +83,6 @@ public class PlayerHit : MonoBehaviour
             _renderer.sprite = _deathSprites[i];
             yield return new WaitForSecondsRealtime(frameTime);
         }
-        //yield return new WaitForSecondsRealtime(deathDuration);
 
         Time.timeScale = 1f;
         Time.fixedDeltaTime = 0.02f;

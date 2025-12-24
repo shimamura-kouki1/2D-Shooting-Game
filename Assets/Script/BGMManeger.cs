@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Audio;
 
 public class BGMManeger : MonoBehaviour
 {
@@ -15,6 +14,14 @@ public class BGMManeger : MonoBehaviour
 
     private void Update()
     {
+        BGMCanger();
+    }
+
+    /// <summary>
+    /// BGMをシーンごとに変化
+    /// </summary>
+    private void BGMCanger()
+    {
         //Titelかつ、要素が0以外なら実行
         if (GameManeger.Instance.CurrentState == GameState.Titel && _bgm[_unmber] != _bgm[0])
         {
@@ -22,18 +29,17 @@ public class BGMManeger : MonoBehaviour
             _audioSource.resource = _bgm[0];
             _audioSource.Play();
         }
-        if(GameManeger.Instance.CurrentState == GameState.Playing && _bgm[_unmber] != _bgm[1])
+        if (GameManeger.Instance.CurrentState == GameState.Playing && _bgm[_unmber] != _bgm[1])
         {
             _unmber = 1;
-            _audioSource.resource= _bgm[1];
+            _audioSource.resource = _bgm[1];
             _audioSource.Play();
         }
-        if(GameManeger.Instance.CurrentState == GameState.GameOver && _bgm[_unmber] != _bgm[2])
+        if (GameManeger.Instance.CurrentState == GameState.GameOver && _bgm[_unmber] != _bgm[2])
         {
             _unmber = 2;
             _audioSource.resource = _bgm[2]; //(AudioClip)_bgm[2];
             _audioSource.Play();
         }
-
     }
 }

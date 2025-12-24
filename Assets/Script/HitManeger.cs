@@ -41,9 +41,6 @@ public class HitManeger : MonoBehaviour,IResettable
             {
                 Enemy2 enemy = _enemy[k];
 
-                //if (!enemy.gameObject.activeInHierarchy)
-                //    continue;
-
                 Vector2 enemyPos = enemy.transform.position;
 
                 Vector2 distance = bulletPos - enemyPos;//‹——£‚ÅŒvŽZ‚µ‚Æ‚é
@@ -59,9 +56,6 @@ public class HitManeger : MonoBehaviour,IResettable
                     }
                     bullet.ReturnPool();
 
-
-
-                    //_bullet.RemoveAt(i);
                     break;
                 }
             }
