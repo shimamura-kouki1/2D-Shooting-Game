@@ -42,10 +42,13 @@ public class Enemy2 : MonoBehaviour, IHittable
 
     [SerializeField] private SEManager _seManager;
 
+    private Transform _tr;
 
     void Start()
     {
         gameObject.SetActive(false);
+
+        _tr = transform;
     }
 
     void Update()
@@ -55,7 +58,7 @@ public class Enemy2 : MonoBehaviour, IHittable
             gameObject.SetActive(false);
             _wasActive = false;
             _setActive = false;
-            transform.position = _stratPos;
+            _tr.position = _stratPos;
             return;
         }
         if (GameManeger.Instance.CurrentState != GameState.Playing)
@@ -98,7 +101,7 @@ public class Enemy2 : MonoBehaviour, IHittable
         float y = Random.Range(_spawnYRange.x, _spawnYRange.y);
 
         // 指定したX座標にワープ
-        transform.position = new Vector3(_spawnX, y, 0f);
+        _tr.position = new Vector3(_spawnX, y, 0f);
 
         _seManager.EnemySpawn();//スポーンSE
 
@@ -112,26 +115,26 @@ public class Enemy2 : MonoBehaviour, IHittable
     {
         time += Time.deltaTime;
 
-        float x = transform.position.x - _enemySpeed * Time.deltaTime;
-        transform.position = new Vector3(x, transform.position.y, 0f);
+        float x = _tr.position.x - _enemySpeed * Time.deltaTime;
+        _tr.position = new Vector3(x, _tr.position.y, 0f);
     }
 
     private void WaveMove()
     {
         time += Time.deltaTime;
 
-        float x = transform.position.x - _enemySpeed * Time.deltaTime;
+        float x = _tr.position.x - _enemySpeed * Time.deltaTime;
         float y = baseY + Mathf.Sin(time * _waveFrequency) * _waveAmplitude;
 
-        transform.position = new Vector3(x, y, 0f);
+        _tr.position = new Vector3(x, y, 0f);
     }
     private void CheckOutOfScreen()
     {
         // 指定したX座標より左に行ったら消す
-        if (transform.position.x < _outX)
+        if (_tr.position.x < _outX)
         {
             gameObject.SetActive(false);
-            transform.position = _stratPos;
+            _tr.position = _stratPos;
             _setActive = false;
         }
     }
@@ -149,7 +152,7 @@ public class Enemy2 : MonoBehaviour, IHittable
         }
         // ヒットエフェクト
         HitEffectAuto effect = Instantiate(_hitEffect).GetComponent<HitEffectAuto>();
-        effect.Play(transform.position);
+        effect.Play(_tr.position);
 
         //死亡SE
         _seManager.DeathSE();
@@ -188,7 +191,7 @@ public class Enemy2 : MonoBehaviour, IHittable
         _deathIndex = 0;
         _deathTimer = 0f;
 
-        transform.position = _stratPos;
+        _tr.position = _stratPos;
         gameObject.SetActive(false);
     }
 }

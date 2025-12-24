@@ -1383,12 +1383,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveSpeed: 6.81
-  _Player: 0
   maxX: 8.25
   maxY: 4.5
   miniX: -8
   miniY: -4.5
   _spowaner: {fileID: 1888840387}
+  _playerHit: {fileID: 545753736}
+  _seManager: {fileID: 1537092426}
   _renderer: {fileID: 545753738}
   _idleSprites:
   - {fileID: -905696391, guid: 63b653eb714f9a44ba3dac4f89e872b2, type: 3}
@@ -1397,8 +1398,6 @@ MonoBehaviour:
   - {fileID: -545193693, guid: 63b653eb714f9a44ba3dac4f89e872b2, type: 3}
   - {fileID: 531684955, guid: 63b653eb714f9a44ba3dac4f89e872b2, type: 3}
   - {fileID: 284609380, guid: 63b653eb714f9a44ba3dac4f89e872b2, type: 3}
-  _playerHit: {fileID: 545753736}
-  _seManager: {fileID: 1537092426}
 --- !u!114 &545753731
 MonoBehaviour:
   m_ObjectHideFlags: 0

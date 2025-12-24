@@ -14,6 +14,7 @@ public class HitManeger : MonoBehaviour,IResettable
     {
         Instance = this;
         ResettableRegistry.Register(this);
+        _tr = GetComponent<Transform>();
     }
     void OnDestroy()
     {

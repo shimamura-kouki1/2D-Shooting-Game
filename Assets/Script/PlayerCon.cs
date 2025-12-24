@@ -5,7 +5,6 @@ public class PlayerCon : MonoBehaviour,IResettable
 {
     [Header("プレイヤーの設定")]
     [SerializeField] private float _moveSpeed;
-    [SerializeField] private float _Player;
 
     [Header("移動制限")]
     [SerializeField] private float maxX;
@@ -65,11 +64,13 @@ public class PlayerCon : MonoBehaviour,IResettable
         if (_move.IsPressed())
         {
             _horizontar = _move.ReadValue<Vector2>();
+            float X = _tr.position.x + _horizontar.x * _moveSpeed * Time.deltaTime;
             float Y = _tr.position.y + _horizontar.y * _moveSpeed * Time.deltaTime;
-            float X = _tr.position.x +_horizontar.x * _moveSpeed * Time.deltaTime;
-            _tr.position = new Vector3(Mathf.Clamp( X, miniX, maxX),
+
+            _tr.position = new Vector3(Mathf.Clamp(X, miniX, maxX),
                                        Mathf.Clamp(Y, miniY, maxY),
                                        0f);
+            //ClampでIF文で制御するとめんどくさいIF分いっぱいヤダ
         }
         IdleMotion();
     }

@@ -8,6 +8,7 @@ public class PlayerHit : MonoBehaviour
     private SpriteRenderer _renderer;
     [SerializeField] Sprite[] _deathSprites;
 
+    [Header("SE")]
     [SerializeField] SEManager _seManager;
 
     private float _playerHalfWidth = 0.5f;
@@ -29,6 +30,9 @@ public class PlayerHit : MonoBehaviour
 
         PlayerHitCheak();
     }
+    /// <summary>
+    /// プレイヤーとエネミーの判定Cheak
+    /// </summary>
     private void PlayerHitCheak()
     {
         Vector2 PlayerPos = _tr.position;
@@ -50,6 +54,9 @@ public class PlayerHit : MonoBehaviour
             }
         }
     }
+    /// <summary>
+    /// 死んだときの処理
+    /// </summary>
     private void Die()
     {
         if (_isDeath) return;
@@ -58,6 +65,10 @@ public class PlayerHit : MonoBehaviour
         StartCoroutine(DeadSlowMotion());
 
     }
+
+    /// <summary>
+    /// DoolとtimeScaleのリセット
+    /// </summary>
     private void Resuscitation()
     {
         if(GameManeger.Instance.CurrentState == GameState.Titel)
@@ -67,6 +78,10 @@ public class PlayerHit : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 死亡時のスローモーション処理
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator DeadSlowMotion()
     {
         float slowScale = 0.1f;
