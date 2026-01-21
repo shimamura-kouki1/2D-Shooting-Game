@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class UIManager : MonoBehaviour
@@ -12,18 +11,21 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        _presentState = GameManeger.Instance.CurrentState;//最初にタイトルを出すために
+        _presentState = GameManager.Instance.CurrentState;//最初にタイトルを出すために
         UpdateUI(_presentState);//UI更新
     }
     void Update()
     {
-        GameState gameState = GameManeger.Instance.CurrentState;
+        GameState gameState = GameManager.Instance.CurrentState;
         if (_presentState == gameState) return;//ゲームの状態が一緒だったらリターン
 
         _presentState = gameState;
         UpdateUI(gameState);
     }
-    //ゲームの状態変更を実行
+    /// <summary>
+    /// ゲームの状態変更を実行
+    /// </summary>
+    /// <param name="gameState"></param>
     private void UpdateUI(GameState gameState)
     {
         _titleUI.SetActive(gameState == GameState.Title);

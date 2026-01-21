@@ -71,7 +71,7 @@ public class PlayerHit : MonoBehaviour
     /// </summary>
     private void Resuscitation()
     {
-        if(GameManeger.Instance.CurrentState == GameState.Title)
+        if(GameManager.Instance.CurrentState == GameState.Title)
         {
             _isDeath = false;
             Time.timeScale = 1f;
@@ -101,6 +101,6 @@ public class PlayerHit : MonoBehaviour
 
         gameObject.SetActive(false);
 
-        GameManeger.Instance.PlayerDead();
+        GameManager.Instance.PlayerDead();
     }
 }

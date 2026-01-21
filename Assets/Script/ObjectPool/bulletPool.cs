@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
-
+/// <summary>
+/// 弾のobjectプール
+/// </summary>
 public class BulletPool : MonoBehaviour
 {
     [SerializeField] private GameObject _bullet;
@@ -10,9 +12,9 @@ public class BulletPool : MonoBehaviour
 
     private void Start()
     {
-        InstantiatePoll();
+        InstantiatePool();
     }
-    private void InstantiatePoll()//格納
+    private void InstantiatePool()//格納
     {
         for (int i =0; i < _poolSize; i++)
         {
@@ -46,6 +48,10 @@ public class BulletPool : MonoBehaviour
         return bulletGet;
     }
 
+    /// <summary>
+    /// 弾をオブジェクトプールへ回収
+    /// </summary>
+    /// <param name="bullet"></param>
     public void ReturnBullet(GameObject bullet)
     {
         bullet.SetActive(false);

@@ -27,9 +27,9 @@ public class PauseMenu : MonoBehaviour
     public void Submit()//“ü—Í‚ÌŒˆ’è
     {
         if (selectIndex == 0)
-            GameManeger.Instance.SetState(GameState.Playing);
+            GameManager.Instance.SetState(GameState.Playing);
         else
-            GameManeger.Instance.SetState(GameState.Title);
+            GameManager.Instance.SetState(GameState.Title);
     }
 
     private void UpdateVisual()//‘I‘ð’†‚ÌŒ©‚½–Ú‚Ì•Ï‰»

@@ -43,7 +43,7 @@ public class Enemy : MonoBehaviour,IResettable
 
     private void Update()
     {
-        if (GameManeger.Instance.CurrentState != GameState.Playing)
+        if (GameManager.Instance.CurrentState != GameState.Playing)
             return;
 
         WaveMove();

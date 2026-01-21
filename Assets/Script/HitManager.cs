@@ -15,7 +15,7 @@ public class HitManager : MonoBehaviour, IResettable
     private void Awake()
     {
         Instance = this;
-        ResettableRegistry.Register(this);
+        ResettableRegistry.Register(this);//リセット対象に登録
         _tr = GetComponent<Transform>();
     }
     void OnDestroy()
@@ -24,11 +24,11 @@ public class HitManager : MonoBehaviour, IResettable
     }
     void Update()
     {
-        if (GameManeger.Instance.CurrentState != GameState.Playing)
+        if (GameManager.Instance.CurrentState != GameState.Playing)
             return;
-        HitChek();
+        HitCheck();
     }
-    private void HitChek()
+    private void HitCheck()
     {
         for (int i = _bullet.Count - 1; i >= 0; i--)//foreachだと途中でリストが変わるからエラーになる/変わっても後ろから検証してるから検証ミスが起きない
         {
@@ -59,10 +59,16 @@ public class HitManager : MonoBehaviour, IResettable
             }
         }
     }
+    /// <summary>
+    /// 使用禁止
+    /// </summary>
     public void SaveInitialState()
     {
         return;
     }
+    /// <summary>
+    /// タイトルに戻ったときの初期化
+    /// </summary>
     public void ResetToInitialState()
     {
         _bullet.Clear();

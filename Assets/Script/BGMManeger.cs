@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class BGMManeger : MonoBehaviour
 {
-    [SerializeField] private AudioClip[] _bgm;
+    [SerializeField] private AudioClip[] _bgm;//BGMのリスト
     private AudioSource _audioSource;
     private int _unmber = 0;
     private void Start()
@@ -14,28 +14,28 @@ public class BGMManeger : MonoBehaviour
 
     private void Update()
     {
-        BGMCanger();
+        BGMChanger();
     }
 
     /// <summary>
     /// BGMをシーンごとに変化
     /// </summary>
-    private void BGMCanger()
+    private void BGMChanger()
     {
         //Titelかつ、要素が0以外なら実行
-        if (GameManeger.Instance.CurrentState == GameState.Title && _bgm[_unmber] != _bgm[0])
+        if (GameManager.Instance.CurrentState == GameState.Title && _bgm[_unmber] != _bgm[0])
         {
             _unmber = 0;
             _audioSource.resource = _bgm[0];
             _audioSource.Play();
         }
-        if (GameManeger.Instance.CurrentState == GameState.Playing && _bgm[_unmber] != _bgm[1])
+        if (GameManager.Instance.CurrentState == GameState.Playing && _bgm[_unmber] != _bgm[1])
         {
             _unmber = 1;
             _audioSource.resource = _bgm[1];
             _audioSource.Play();
         }
-        if (GameManeger.Instance.CurrentState == GameState.GameOver && _bgm[_unmber] != _bgm[2])
+        if (GameManager.Instance.CurrentState == GameState.GameOver && _bgm[_unmber] != _bgm[2])
         {
             _unmber = 2;
             _audioSource.resource = _bgm[2]; //(AudioClip)_bgm[2];

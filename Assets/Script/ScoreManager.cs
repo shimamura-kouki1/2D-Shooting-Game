@@ -4,16 +4,17 @@ using UnityEngine;
 public class ScoreManager : MonoBehaviour
 {
     [SerializeField] private float _score;
-    [SerializeField] private TextMeshPro _textMeshPro;
+    [SerializeField] private TextMeshProUGUI _textMeshProUGUI;
 
     void Start()
     {
         _score = 0f;
+        _textMeshProUGUI.text = _score.ToString();
     }
     public void Score()
     {
         _score += 100f;
-        _textMeshPro .text = _score.ToString();
+        _textMeshProUGUI.text = _score.ToString();
     }
 
 }

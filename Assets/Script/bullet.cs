@@ -5,14 +5,14 @@ public class Bullet : MonoBehaviour
     public BulletPool _bulletPool { get; set; }
 
 
-    [SerializeField] private float _bulletSpeesd;
-    private Transform _transform;
-    [SerializeField] private float _returnX;
-    [SerializeField] private Vector3 _returnPos;
+    [SerializeField] private float _bulletSpeesd;//’e‚Ì‘¬“x
+    private Transform _tr;
+    [SerializeField] private float _returnX;//ˆÚ“®ŒÀŠE
+    [SerializeField] private Vector3 _returnPos;//‹A‚éˆÊ’u
 
     public void OnEnable()
     {
-        HitManager.Instance._bullet.Add(this);
+        HitManager.Instance._bullet.Add(this);//ƒŠƒXƒg‚É“o˜^
     }
     public void OnDisable()
     {
@@ -24,20 +24,21 @@ public class Bullet : MonoBehaviour
 
     void Start()
     {
-        _transform = GetComponent<Transform>();
+        _tr = GetComponent<Transform>();
         _returnPos = new Vector3(_returnX, 0f, 0f);
     }
     private void Update()
     {
-        _transform.position += new Vector3(_transform.right.x + _bulletSpeesd, 0f, 0f) * Time.deltaTime;
+        //ˆÚ“®ˆ—
+        _tr.position += new Vector3(_tr.right.x + _bulletSpeesd, 0f, 0f) * Time.deltaTime;
 
-        if (_transform.position.x > _returnPos.x)
+        if (_tr.position.x > _returnPos.x)//ˆÚ“®ŒÀŠE‚Ü‚Å—ˆ‚½‚ç‰ñŽû
         {
-            _bulletPool.ReturnBullet(gameObject);
+            ReturnPool();
         }
-        if (GameManeger.Instance.CurrentState == GameState.Title)
+        if (GameManager.Instance.CurrentState == GameState.Title)//ƒ^ƒCƒgƒ‹‚È‚ç‰ñŽû
         {
-            _bulletPool.ReturnBullet(gameObject);
+            ReturnPool();
         }
     }
     public void ReturnPool()

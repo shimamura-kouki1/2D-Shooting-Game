@@ -31,7 +31,7 @@ public class SEManager : MonoBehaviour
     }
     public void GameStart()
     {
-        if(GameManeger.Instance.CurrentState == GameState.Title)
+        if(GameManager.Instance.CurrentState == GameState.Title)
         _unmber = 3;
         _audioSource.resource = _bgm[3];
         _audioSource.Play();

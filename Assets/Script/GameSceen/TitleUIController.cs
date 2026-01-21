@@ -14,7 +14,7 @@ public class TitleUIController : MonoBehaviour
     }
     public void OnStartButton()
     {
-        GameManeger.Instance.SetState(GameState.Playing);
+        GameManager.Instance.SetState(GameState.Playing);
         _seManager.GameStart();
     }
 

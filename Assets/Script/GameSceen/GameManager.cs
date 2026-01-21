@@ -5,9 +5,9 @@ using UnityEngine;
 /// <summary>
 /// ゲームの状態決定の変更
 /// </summary>
-public class GameManeger : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
-    public static GameManeger Instance;//どこからでもアクセス可能
+    public static GameManager Instance;//どこからでもアクセス可能
 
     public static event Action<GameState> OnStateChanged;
 
@@ -46,13 +46,13 @@ public class GameManeger : MonoBehaviour
             return;
         CurrentState = state;
 
-        OnStateChanged?.Invoke(state);//変化の通知
-
         if (state == GameState.Title)
         {
             ResettableRegistry.ResetAll(); //初期化ゲーム全体を
         }
 
         Time.timeScale = (state == GameState.Playing) ? 1f : 0f;//Playing以外0に
+
+        OnStateChanged?.Invoke(state);//変化の通知
     }
 }

@@ -10,6 +10,8 @@ public class UIPauseInput : MonoBehaviour
     private InputAction _submit;
     private InputAction _pause;
 
+    GameState _gameState;
+
     [SerializeField] private PauseMenu _pauseMenu;
     void Start()
     {
@@ -22,20 +24,21 @@ public class UIPauseInput : MonoBehaviour
 
     void Update()
     {
+        _gameState = GameManager.Instance.CurrentState;
         if (_pause.WasPressedThisFrame())
         {
-            if (GameManeger.Instance.CurrentState == GameState.Playing)
+            if (_gameState == GameState.Playing)
             {
-                GameManeger.Instance.SetState(GameState.Pause);//状態をポーズ状態に変更
+                GameManager.Instance.SetState(GameState.Pause);//状態をポーズ状態に変更
                 _seManager.PoseSE();
             }
-            else if (GameManeger.Instance.CurrentState == GameState.Pause)//ポーズ画面から変更
+            else if (_gameState == GameState.Pause)//ポーズ画面から変更
             {
-                GameManeger.Instance.SetState(GameState.Playing);
+                GameManager.Instance.SetState(GameState.Playing);
             }
         }
 
-        if (GameManeger.Instance.CurrentState != GameState.Pause)
+        if (_gameState != GameState.Pause)
             return;
 
         // 上下入力

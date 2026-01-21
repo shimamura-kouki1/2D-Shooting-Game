@@ -1,4 +1,3 @@
-using NUnit.Framework.Internal;
 using UnityEngine;
 
 public class Enemy2 : MonoBehaviour, IHittable
@@ -46,12 +45,12 @@ public class Enemy2 : MonoBehaviour, IHittable
 
     private void OnEnable()
     {
-        GameManeger.OnStateChanged += Statechange;
+        GameManager.OnStateChanged += Statechange;
     }
 
     private void OnDisable()
     {
-        GameManeger.OnStateChanged -= Statechange;
+        GameManager.OnStateChanged -= Statechange;
     }
 
     void Start()
@@ -63,7 +62,7 @@ public class Enemy2 : MonoBehaviour, IHittable
 
     void Update()
     {
-        if (GameManeger.Instance.CurrentState == GameState.Title)
+        if (GameManager.Instance.CurrentState == GameState.Title)
         {
             gameObject.SetActive(false);
             _wasActive = false;
@@ -71,7 +70,7 @@ public class Enemy2 : MonoBehaviour, IHittable
             _tr.position = _stratPos;
             return;
         }
-        if (GameManeger.Instance.CurrentState != GameState.Playing)
+        if (GameManager.Instance.CurrentState != GameState.Playing)
             return;
 
         if (_isDead)
@@ -81,7 +80,7 @@ public class Enemy2 : MonoBehaviour, IHittable
         }
         if (!_setActive)
         {
-            HitManager.Instance._enemy.Add(this); //HitManegerのリストに追加
+            HitManager.Instance.RegisterEnemy(this); //HitManegerのリストに追加
             _setActive = true;
         }
 

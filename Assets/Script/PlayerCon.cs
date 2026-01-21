@@ -20,14 +20,16 @@ public class PlayerCon : MonoBehaviour,IResettable
 
     private Vector3 _initialPosition;//初期位置
 
-    [SerializeField] Spowaner _spowaner;
+    [SerializeField] Spawaner _spowaner;
     [SerializeField] PlayerHit _playerHit;
     [SerializeField] SEManager _seManager;
 
-    [Header("idle")]
+    [Header("Idle")]
     [SerializeField] SpriteRenderer _renderer;
     [SerializeField] Sprite[] _idleSprites;
     private int _index = 0;
+
+    private const string _fire = "fire";
 
     void Awake()
     {
@@ -36,7 +38,7 @@ public class PlayerCon : MonoBehaviour,IResettable
 
         _move = _playerInput.actions["move"];
 
-        ResettableRegistry.Register(this);
+        ResettableRegistry.Register(this);//初期化登録
 
         Application.targetFrameRate = 60;
     }
@@ -47,16 +49,16 @@ public class PlayerCon : MonoBehaviour,IResettable
 
     void OnDestroy()
     {
-        ResettableRegistry.Unregister(this);
+        ResettableRegistry.Unregister(this);//初期化登録解除
     }
 
     void Update()
     {
-        if (GameManeger.Instance.CurrentState != GameState.Playing)return;
+        if (GameManager.Instance.CurrentState != GameState.Playing)return;
         
         if (_playerHit.IsDead)return;
 
-        if (_playerInput.actions["fire"].IsPressed())
+        if (_playerInput.actions[_fire].IsPressed())
         {
             Fire();
         }
@@ -70,7 +72,6 @@ public class PlayerCon : MonoBehaviour,IResettable
             _tr.position = new Vector3(Mathf.Clamp(X, miniX, maxX),
                                        Mathf.Clamp(Y, miniY, maxY),
                                        0f);
-            //ClampでIF文で制御するとめんどくさいIF分いっぱいヤダ
         }
         IdleMotion();
     }
@@ -98,7 +99,7 @@ public class PlayerCon : MonoBehaviour,IResettable
     }
 
     /// <summary>
-    /// アイドルのアニメーション
+    /// 待機時のアニメーション
     /// </summary>
     public void IdleMotion()
     {
