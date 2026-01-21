@@ -23,7 +23,7 @@ public class BGMManeger : MonoBehaviour
     private void BGMCanger()
     {
         //Titelかつ、要素が0以外なら実行
-        if (GameManeger.Instance.CurrentState == GameState.Titel && _bgm[_unmber] != _bgm[0])
+        if (GameManeger.Instance.CurrentState == GameState.Title && _bgm[_unmber] != _bgm[0])
         {
             _unmber = 0;
             _audioSource.resource = _bgm[0];

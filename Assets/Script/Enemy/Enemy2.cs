@@ -44,6 +44,16 @@ public class Enemy2 : MonoBehaviour, IHittable
 
     private Transform _tr;
 
+    private void OnEnable()
+    {
+        GameManeger.OnStateChanged += Statechange;
+    }
+
+    private void OnDisable()
+    {
+        GameManeger.OnStateChanged -= Statechange;
+    }
+
     void Start()
     {
         gameObject.SetActive(false);
@@ -53,7 +63,7 @@ public class Enemy2 : MonoBehaviour, IHittable
 
     void Update()
     {
-        if (GameManeger.Instance.CurrentState == GameState.Titel)
+        if (GameManeger.Instance.CurrentState == GameState.Title)
         {
             gameObject.SetActive(false);
             _wasActive = false;
@@ -71,7 +81,7 @@ public class Enemy2 : MonoBehaviour, IHittable
         }
         if (!_setActive)
         {
-            HitManeger.Instance._enemy.Add(this);
+            HitManager.Instance._enemy.Add(this); //HitManegerのリストに追加
             _setActive = true;
         }
 
@@ -94,7 +104,9 @@ public class Enemy2 : MonoBehaviour, IHittable
 
     }
 
-
+    /// <summary>
+    /// スポーン処理
+    /// </summary>
     private void OnActivated()
     {
         // 出現Y座標はをランダムで決める
@@ -111,6 +123,9 @@ public class Enemy2 : MonoBehaviour, IHittable
 
         _useWave = Random.Range(0, 2) == 0;
     }
+    /// <summary>
+    /// 垂直横移動
+    /// </summary>
     private void Move()
     {
         time += Time.deltaTime;
@@ -118,7 +133,9 @@ public class Enemy2 : MonoBehaviour, IHittable
         float x = _tr.position.x - _enemySpeed * Time.deltaTime;
         _tr.position = new Vector3(x, _tr.position.y, 0f);
     }
-
+    /// <summary>
+    /// ウェーブ移動
+    /// </summary>
     private void WaveMove()
     {
         time += Time.deltaTime;
@@ -128,6 +145,9 @@ public class Enemy2 : MonoBehaviour, IHittable
 
         _tr.position = new Vector3(x, y, 0f);
     }
+    /// <summary>
+    /// 画面外に出たら消す
+    /// </summary>
     private void CheckOutOfScreen()
     {
         // 指定したX座標より左に行ったら消す
@@ -162,6 +182,7 @@ public class Enemy2 : MonoBehaviour, IHittable
         _deathIndex = 0;
         _deathTimer = 0f;
         _renderer.sprite = _deathSprites[0];
+
     }
 
     private void DeathAnimation()
@@ -183,6 +204,9 @@ public class Enemy2 : MonoBehaviour, IHittable
             _renderer.sprite = _deathSprites[_deathIndex];
         }
     }
+    /// <summary>
+    /// 再利用可能の状態に初期化
+    /// </summary>
     private void ResetEnemy()
     {
         _isDead = false;
@@ -193,5 +217,13 @@ public class Enemy2 : MonoBehaviour, IHittable
 
         _tr.position = _stratPos;
         gameObject.SetActive(false);
+    }
+
+    private void Statechange(GameState state)
+    {
+        if (state == GameState.Title)
+        {
+            ResetEnemy();
+        }
     }
 }

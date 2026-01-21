@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EnemySpon : MonoBehaviour
+public class EnemySpawn : MonoBehaviour
 {
     [SerializeField] private EnemyPool _enemyPool;
 

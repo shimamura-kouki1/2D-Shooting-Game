@@ -1,9 +1,11 @@
 using UnityEngine;
 using System.Collections.Generic;
-
-public class HitManeger : MonoBehaviour,IResettable
+/// <summary>
+/// 弾とエネミーのヒット判定
+/// </summary>
+public class HitManager : MonoBehaviour, IResettable
 {
-    public static HitManeger Instance;
+    public static HitManager Instance;
 
     public List<Bullet> _bullet = new List<Bullet>();
     public List<Enemy2> _enemy = new List<Enemy2>();
@@ -22,19 +24,14 @@ public class HitManeger : MonoBehaviour,IResettable
     }
     void Update()
     {
-        if (GameManeger.Instance.CurrentState == GameState.Titel)
-        {
-            ListReset();
-        }
-
         if (GameManeger.Instance.CurrentState != GameState.Playing)
             return;
         HitChek();
     }
     private void HitChek()
     {
-        for(int i = _bullet.Count - 1; i >= 0;i--)//foreachだと途中でリストが変わるからエラーになる/変わっても後ろから検証してるから検証ミスが起きない
-            {
+        for (int i = _bullet.Count - 1; i >= 0; i--)//foreachだと途中でリストが変わるからエラーになる/変わっても後ろから検証してるから検証ミスが起きない
+        {
             Bullet bullet = _bullet[i];
             Vector2 bulletPos = bullet.transform.position;
 
@@ -60,18 +57,8 @@ public class HitManeger : MonoBehaviour,IResettable
                     break;
                 }
             }
-
         }
-
     }
-
-    public void ListReset()//Listのリセット
-    {
-        _bullet.Clear();
-        _enemy.Clear();
-    }
-
-
     public void SaveInitialState()
     {
         return;
@@ -85,5 +72,14 @@ public class HitManeger : MonoBehaviour,IResettable
             if (enemy.gameObject.activeInHierarchy)
                 _enemy.Add(enemy);
         }
+    }
+    /// <summary>
+    /// HitManagerへの登録
+    /// </summary>
+    /// <param name="enemy"></param>
+    public void RegisterEnemy(Enemy2 enemy)//
+    {
+        if (!_enemy.Contains(enemy))
+            _enemy.Add(enemy);
     }
 }

@@ -1,8 +1,6 @@
-using UnityEngine;
-
 public enum GameState
 {
-    Titel,
+    Title,
     Playing,
     Pause,
     GameOver

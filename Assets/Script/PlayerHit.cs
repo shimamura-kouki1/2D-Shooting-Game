@@ -36,9 +36,9 @@ public class PlayerHit : MonoBehaviour
     private void PlayerHitCheak()
     {
         Vector2 PlayerPos = _tr.position;
-        for (int i = HitManeger.Instance._enemy.Count - 1; i >= 0; i--)
+        for (int i = HitManager.Instance._enemy.Count - 1; i >= 0; i--)
         {
-            Enemy2 enemy = HitManeger.Instance._enemy[i];
+            Enemy2 enemy = HitManager.Instance._enemy[i];
             Vector2 enemyPos = enemy.transform.position;
 
             Vector2 distance = enemyPos - PlayerPos;
@@ -71,7 +71,7 @@ public class PlayerHit : MonoBehaviour
     /// </summary>
     private void Resuscitation()
     {
-        if(GameManeger.Instance.CurrentState == GameState.Titel)
+        if(GameManeger.Instance.CurrentState == GameState.Title)
         {
             _isDeath = false;
             Time.timeScale = 1f;

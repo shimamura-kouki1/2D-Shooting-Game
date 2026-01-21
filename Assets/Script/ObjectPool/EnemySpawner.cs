@@ -27,7 +27,7 @@ public class EnemySpawner : MonoBehaviour
     }
     void Update()
     {
-        if (GameManeger.Instance.CurrentState == GameState.Titel)
+        if (GameManeger.Instance.CurrentState == GameState.Title)
         {
 
         }

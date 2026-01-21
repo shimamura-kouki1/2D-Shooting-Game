@@ -12,13 +12,13 @@ public class Bullet : MonoBehaviour
 
     public void OnEnable()
     {
-        HitManeger.Instance._bullet.Add(this);
+        HitManager.Instance._bullet.Add(this);
     }
     public void OnDisable()
     {
-        if(HitManeger.Instance != null)
+        if(HitManager.Instance != null)
         {
-            HitManeger.Instance._bullet.Remove(this);
+            HitManager.Instance._bullet.Remove(this);
         }
     }
 
@@ -35,7 +35,7 @@ public class Bullet : MonoBehaviour
         {
             _bulletPool.ReturnBullet(gameObject);
         }
-        if (GameManeger.Instance.CurrentState == GameState.Titel)
+        if (GameManeger.Instance.CurrentState == GameState.Title)
         {
             _bulletPool.ReturnBullet(gameObject);
         }

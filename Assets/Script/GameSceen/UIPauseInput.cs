@@ -26,11 +26,13 @@ public class UIPauseInput : MonoBehaviour
         {
             if (GameManeger.Instance.CurrentState == GameState.Playing)
             {
-                GameManeger.Instance.SetState(GameState.Pause);
+                GameManeger.Instance.SetState(GameState.Pause);//状態をポーズ状態に変更
                 _seManager.PoseSE();
             }
-            else if (GameManeger.Instance.CurrentState == GameState.Pause)
+            else if (GameManeger.Instance.CurrentState == GameState.Pause)//ポーズ画面から変更
+            {
                 GameManeger.Instance.SetState(GameState.Playing);
+            }
         }
 
         if (GameManeger.Instance.CurrentState != GameState.Pause)

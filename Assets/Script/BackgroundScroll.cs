@@ -12,7 +12,7 @@ public class BackgroundScroll : MonoBehaviour
     }
     void Update()
     {
-        if (GameManeger.Instance.CurrentState == GameState.Titel)
+        if (GameManeger.Instance.CurrentState == GameState.Title)
         {
             ResetPosition();
         }
