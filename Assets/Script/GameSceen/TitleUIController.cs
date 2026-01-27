@@ -12,6 +12,7 @@ public class TitleUIController : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(firstSelectButton);
     }
+
     public void OnStartButton()
     {
         GameManager.Instance.SetState(GameState.Playing);

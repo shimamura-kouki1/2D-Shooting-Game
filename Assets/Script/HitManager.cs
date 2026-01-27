@@ -12,6 +12,8 @@ public class HitManager : MonoBehaviour, IResettable
 
     private Transform _tr;
 
+    [SerializeField] private ScoreManager _scoreManager;
+
     private void Awake()
     {
         Instance = this;
@@ -51,6 +53,7 @@ public class HitManager : MonoBehaviour, IResettable
                     if (enemy.TryGetComponent<IHittable>(out var hittable))
                     {
                         hittable.OnHit(bullet);
+                        _scoreManager.Score();
                     }
                     bullet.ReturnPool();
 

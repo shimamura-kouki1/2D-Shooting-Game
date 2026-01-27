@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
 
     public static event Action<GameState> OnStateChanged;
 
+    [SerializeField] private ScoreManager _scoreManager;
+
     public GameState CurrentState { get; private set; }//“Ç‚İæ‚èê—p
 
     private void Awake()
@@ -28,6 +30,7 @@ public class GameManager : MonoBehaviour
     public void PlayerDead()
     {
         SetState(GameState.GameOver);
+        _scoreManager.SaveHightScore();
         StartCoroutine(GameOverSequence());
     }
 
@@ -48,6 +51,7 @@ public class GameManager : MonoBehaviour
 
         if (state == GameState.Title)
         {
+            _scoreManager.TitleScore();
             ResettableRegistry.ResetAll(); //‰Šú‰»ƒQ[ƒ€‘S‘Ì‚ğ
         }
 
