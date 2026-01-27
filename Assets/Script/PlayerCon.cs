@@ -44,6 +44,7 @@ public class PlayerCon : MonoBehaviour,IResettable
     }
     void Start()
     {
+        Application.targetFrameRate = 60;
         SaveInitialState();
     }
 

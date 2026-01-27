@@ -4,9 +4,13 @@ using UnityEngine;
 /// </summary>
 public interface IResettable
 {
-    // ゲーム開始時の状態を保存
+    /// <summary>
+    /// ゲーム開始時の状態を保存
+    /// </summary>
     void SaveInitialState();
 
-    // タイトルに戻るときに呼ばれる
+    /// <summary>
+    /// タイトルに戻るときに呼ばれる
+    /// </summary>
     void ResetToInitialState();
 }
