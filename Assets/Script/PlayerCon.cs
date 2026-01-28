@@ -5,6 +5,8 @@ public class PlayerCon : MonoBehaviour,IResettable
 {
     [Header("プレイヤーの設定")]
     [SerializeField] private float _moveSpeed;
+    [SerializeField]private float _sprintMaxSpeed;
+    private float _sprintSpeed;
 
     [Header("移動制限")]
     [SerializeField] private float maxX;
@@ -12,7 +14,8 @@ public class PlayerCon : MonoBehaviour,IResettable
     [SerializeField] private float miniX;
     [SerializeField] private float miniY;
 
-    private InputAction _move;
+    private InputAction _moveCon;
+    private InputAction _sprintCon;
     private PlayerInput _playerInput;
 
     private Vector2 _horizontar;
@@ -20,6 +23,7 @@ public class PlayerCon : MonoBehaviour,IResettable
 
     private Vector3 _initialPosition;//初期位置
 
+    [Header("Sprict")]
     [SerializeField] Spawaner _spowaner;
     [SerializeField] PlayerHit _playerHit;
     [SerializeField] SEManager _seManager;
@@ -30,13 +34,16 @@ public class PlayerCon : MonoBehaviour,IResettable
     private int _index = 0;
 
     private const string _fire = "fire";
+    private const string _move = "move";
+    private const string _sprint = "sprint";
 
     void Awake()
     {
         _tr = GetComponent<Transform>();
         _playerInput = GetComponent<PlayerInput>();
 
-        _move = _playerInput.actions["move"];
+        _moveCon = _playerInput.actions[_move];
+        _sprintCon = _playerInput.actions[_sprint];
 
         ResettableRegistry.Register(this);//初期化登録
 
@@ -44,6 +51,7 @@ public class PlayerCon : MonoBehaviour,IResettable
     }
     void Start()
     {
+        _sprintSpeed = 1f;
         Application.targetFrameRate = 60;
         SaveInitialState();
     }
@@ -64,15 +72,18 @@ public class PlayerCon : MonoBehaviour,IResettable
             Fire();
         }
 
-        if (_move.IsPressed())
+        if (_moveCon.IsPressed())
         {
-            _horizontar = _move.ReadValue<Vector2>();
-            float X = _tr.position.x + _horizontar.x * _moveSpeed * Time.deltaTime;
-            float Y = _tr.position.y + _horizontar.y * _moveSpeed * Time.deltaTime;
+            Sprint();
+            _horizontar = _moveCon.ReadValue<Vector2>();
+            float X = _tr.position.x + _horizontar.x * _moveSpeed * _sprintSpeed * Time.deltaTime;
+            float Y = _tr.position.y + _horizontar.y * _moveSpeed * _sprintSpeed * Time.deltaTime;
 
             _tr.position = new Vector3(Mathf.Clamp(X, miniX, maxX),
                                        Mathf.Clamp(Y, miniY, maxY),
                                        0f);
+
+            _sprintSpeed = 1f;
         }
         IdleMotion();
     }
@@ -85,10 +96,23 @@ public class PlayerCon : MonoBehaviour,IResettable
             _spowaner.FireBullet();
         }
     }
+
+    /// <summary>
+    /// 一瞬加速
+    /// </summary>
+    private void Sprint()
+    {
+        if (_sprintCon.WasPressedThisFrame())
+        {
+            _sprintSpeed = _sprintMaxSpeed;
+        }
+    }
     public void SaveInitialState()
     {
         _initialPosition = _tr.position;
     }
+
+
 
     /// <summary>
     /// ポジションリセット
@@ -104,7 +128,7 @@ public class PlayerCon : MonoBehaviour,IResettable
     /// </summary>
     public void IdleMotion()
     {
-        if (!_move.IsPressed())
+        if (!_moveCon.IsPressed())
         {
             _index = (_index+1) % _idleSprites.Length;
             _renderer.sprite = _idleSprites[_index];

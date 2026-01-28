@@ -378,7 +378,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   firstSelectButton: {fileID: 397134723}
   _seManager: {fileID: 1537092426}
-  _scoreManager: {fileID: 741954875}
 --- !u!1001 &240500397
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1522,6 +1521,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveSpeed: 6.81
+  _sprintMaxSpeed: 10
   maxX: 8.25
   maxY: 4.5
   miniX: -8
