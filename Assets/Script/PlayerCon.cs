@@ -87,8 +87,9 @@ public class PlayerCon : MonoBehaviour, IResettable
     /// </summary>
     private void Move()
     {
-        if(_sprintCon.WasPressedThisFrame())
+        if (_sprintCon.WasPressedThisFrame())
         {
+            PlayerEvents.OnSprint?.Invoke();//ƒXƒvƒŠƒ“ƒgƒq[ƒ‹
             Sprint();
         }
         _horizontar = _moveCon.ReadValue<Vector2>();
@@ -108,18 +109,19 @@ public class PlayerCon : MonoBehaviour, IResettable
     /// </summary>
     private void Sprint()
     {
-            _sprintSpeed = _sprintMaxSpeed;
+        _sprintSpeed = _sprintMaxSpeed;
     }
     /// <summary>
     /// ’e”­Ë
     /// </summary>
     private void Fire()
     {
-        if (Time.frameCount % 30 == 0)
-        {
-            _seManager.ShootSE();//’e”­Ë‚ÌSE
-            _spowaner.FireBullet();
-        }
+        if (Time.frameCount % 30 != 0) return;
+
+        if (PlayerEvents.OnTryUsingMagic?.Invoke() != true) return;//MP‚ª‘«‚è‚È‚©‚Á‚½‚çreturn
+
+        _seManager.ShootSE();//’e”­Ë‚ÌSE
+        _spowaner.FireBullet();
     }
 
 
