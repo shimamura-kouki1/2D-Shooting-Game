@@ -1,11 +1,11 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerCon : MonoBehaviour,IResettable
+public class PlayerCon : MonoBehaviour, IResettable
 {
     [Header("ÉvÉåÉCÉÑÅ[ÇÃê›íË")]
     [SerializeField] private float _moveSpeed;
-    [SerializeField]private float _sprintMaxSpeed;
+    [SerializeField] private float _sprintMaxSpeed;
     private float _sprintSpeed;
 
     [Header("à⁄ìÆêßå¿")]
@@ -16,6 +16,7 @@ public class PlayerCon : MonoBehaviour,IResettable
 
     private InputAction _moveCon;
     private InputAction _sprintCon;
+    private InputAction _fireCon;
     private PlayerInput _playerInput;
 
     private Vector2 _horizontar;
@@ -44,6 +45,7 @@ public class PlayerCon : MonoBehaviour,IResettable
 
         _moveCon = _playerInput.actions[_move];
         _sprintCon = _playerInput.actions[_sprint];
+        _fireCon = _playerInput.actions[_fire];
 
         ResettableRegistry.Register(this);//èâä˙âªìoò^
 
@@ -63,31 +65,54 @@ public class PlayerCon : MonoBehaviour,IResettable
 
     void Update()
     {
-        if (GameManager.Instance.CurrentState != GameState.Playing)return;
-        
-        if (_playerHit.IsDead)return;
+        if (GameManager.Instance.CurrentState != GameState.Playing) return;
 
-        if (_playerInput.actions[_fire].IsPressed())
+        if (_playerHit.IsDead) return;
+
+        if (_fireCon.IsPressed())
         {
             Fire();
         }
-
         if (_moveCon.IsPressed())
         {
-            Sprint();
-            _horizontar = _moveCon.ReadValue<Vector2>();
-            float X = _tr.position.x + _horizontar.x * _moveSpeed * _sprintSpeed * Time.deltaTime;
-            float Y = _tr.position.y + _horizontar.y * _moveSpeed * _sprintSpeed * Time.deltaTime;
-
-            _tr.position = new Vector3(Mathf.Clamp(X, miniX, maxX),
-                                       Mathf.Clamp(Y, miniY, maxY),
-                                       0f);
-
-            _sprintSpeed = 1f;
+            Move();
         }
+
+
+
         IdleMotion();
     }
+    /// <summary>
+    /// à⁄ìÆ
+    /// </summary>
+    private void Move()
+    {
+        if(_sprintCon.WasPressedThisFrame())
+        {
+            Sprint();
+        }
+        _horizontar = _moveCon.ReadValue<Vector2>();
+        float X = _tr.position.x + _horizontar.x * _moveSpeed * _sprintSpeed * Time.deltaTime;
+        float Y = _tr.position.y + _horizontar.y * _moveSpeed * _sprintSpeed * Time.deltaTime;
 
+        _tr.position = new Vector3(Mathf.Clamp(X, miniX, maxX),
+                                   Mathf.Clamp(Y, miniY, maxY),
+                                   0f);
+
+        _sprintSpeed = 1f;//sprintÇèâä˙âªÇµÇƒÇÈ
+    }
+
+
+    /// <summary>
+    /// àÍèuâ¡ë¨
+    /// </summary>
+    private void Sprint()
+    {
+            _sprintSpeed = _sprintMaxSpeed;
+    }
+    /// <summary>
+    /// íeî≠éÀ
+    /// </summary>
     private void Fire()
     {
         if (Time.frameCount % 30 == 0)
@@ -97,16 +122,7 @@ public class PlayerCon : MonoBehaviour,IResettable
         }
     }
 
-    /// <summary>
-    /// àÍèuâ¡ë¨
-    /// </summary>
-    private void Sprint()
-    {
-        if (_sprintCon.WasPressedThisFrame())
-        {
-            _sprintSpeed = _sprintMaxSpeed;
-        }
-    }
+
     public void SaveInitialState()
     {
         _initialPosition = _tr.position;
@@ -130,7 +146,7 @@ public class PlayerCon : MonoBehaviour,IResettable
     {
         if (!_moveCon.IsPressed())
         {
-            _index = (_index+1) % _idleSprites.Length;
+            _index = (_index + 1) % _idleSprites.Length;
             _renderer.sprite = _idleSprites[_index];
         }
     }
