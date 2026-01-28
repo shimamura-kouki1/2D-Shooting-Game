@@ -1,5 +1,9 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
+using static UnityEditor.Experimental.GraphView.GraphView;
+using static UnityEditor.PlayerSettings;
 
 public class PlayerCon : MonoBehaviour, IResettable
 {
@@ -29,10 +33,13 @@ public class PlayerCon : MonoBehaviour, IResettable
     [SerializeField] PlayerHit _playerHit;
     [SerializeField] SEManager _seManager;
 
-    [Header("Idle")]
+    [Header("Animation")]
     [SerializeField] SpriteRenderer _renderer;
     [SerializeField] Sprite[] _idleSprites;
     private int _index = 0;
+    [SerializeField] private GameObject _shadowImagePrefab;
+    [SerializeField] private float _shadowLifeTime = 1f;//表示時間
+    [SerializeField] private GameObject _Anchor;
 
     private const string _fire = "fire";
     private const string _move = "move";
@@ -77,9 +84,6 @@ public class PlayerCon : MonoBehaviour, IResettable
         {
             Move();
         }
-
-
-
         IdleMotion();
     }
     /// <summary>
@@ -109,7 +113,21 @@ public class PlayerCon : MonoBehaviour, IResettable
     /// </summary>
     private void Sprint()
     {
+
         _sprintSpeed = _sprintMaxSpeed;
+        Shadou();
+    }
+
+    private void Shadou()
+    {
+        _shadowImagePrefab.transform.position = _tr.position;
+        StartCoroutine(ShadowDis());
+
+    }
+    private IEnumerator ShadowDis()
+    {
+        yield return new WaitForSecondsRealtime(_shadowLifeTime);
+        _shadowImagePrefab.transform.position = _Anchor.transform.position;
     }
     /// <summary>
     /// 弾発射
@@ -129,8 +147,6 @@ public class PlayerCon : MonoBehaviour, IResettable
     {
         _initialPosition = _tr.position;
     }
-
-
 
     /// <summary>
     /// ポジションリセット
