@@ -1,14 +1,12 @@
 using TMPro;
 using UnityEngine;
-using static UnityEditor.Searcher.SearcherWindow.Alignment;
-using static UnityEngine.CullingGroup;
+
 
 public class Boss : MonoBehaviour, IHittable, IResettable
 {
     [Header("ˆÚ“®")]
     [SerializeField] private float _enemyMove = 2f;
     private int _direction = 1;
-    private float _moveInterval = 120;
 
     [Header("ˆÚ“®§ŒÀ")]
     [SerializeField] private float maxY;
