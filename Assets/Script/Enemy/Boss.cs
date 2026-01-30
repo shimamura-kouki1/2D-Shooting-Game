@@ -47,6 +47,8 @@ public class Boss : MonoBehaviour, IHittable, IResettable
         }
 
         _tr.position = new Vector3(_tr.position.x,Y,0f);
+
+        EnemyEvents.OnEnemyFire?.Invoke();
     }
 
     public void OnHit(Bullet bullet)
