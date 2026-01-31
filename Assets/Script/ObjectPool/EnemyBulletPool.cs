@@ -7,7 +7,6 @@ public class EnemyBulletPool : MonoBehaviour
     [SerializeField] private int _poolSize;
     private readonly Queue<GameObject> _pool = new Queue<GameObject>();
 
-
     private void Start()
     {
         InstantiateBulletPool();
