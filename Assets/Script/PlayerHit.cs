@@ -11,8 +11,8 @@ public class PlayerHit : MonoBehaviour
     [Header("SE")]
     [SerializeField] SEManager _seManager;
 
-    private float _playerHalfWidth = 0.5f;
-    private float _PlayerHalfHeight = 0.5f;
+    public float _playerHalfWidth = 0.5f;
+    public float _PlayerHalfHeight = 0.5f;
     private Transform _tr;
     private bool _isDeath = false;
 
@@ -57,7 +57,7 @@ public class PlayerHit : MonoBehaviour
     /// <summary>
     /// €‚ñ‚¾‚Æ‚«‚Ìˆ—
     /// </summary>
-    private void Die()
+    public void Die()
     {
         if (_isDeath) return;
         _isDeath = true;
