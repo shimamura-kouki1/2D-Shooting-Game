@@ -19,22 +19,38 @@ public class Boss : MonoBehaviour, IHittable, IResettable
     [SerializeField] private float _fireInterval = 1.5f;
     private float _fireTimer;
 
+    [Header("HP")]
+    [SerializeField] private int _hp;
+    private int _currentHitCount;
+
+    [Header("当たり判定")]
+    [SerializeField] public float _halfWidth = 1f;
+    [SerializeField] public float _halfHeight = 1f;
+
 
     private Transform _tr;
-    private bool _isStopping;
+
+    //初期状態の保存用
+    private Vector3 _initialPos;
+    private int _initialDirection;
 
     private void OnEnable()
     {
         ResettableRegistry.Register(this);
+        HitManager.Instance._boss.Add(this);
     }
     private void OnDestroy()
     {
         ResettableRegistry.Unregister(this);
+        HitManager.Instance._boss.Remove(this);
+    }
+    private void Awake()
+    {
+        _tr = transform;
     }
     void Start()
     {
         SaveInitialState();
-        _tr = transform;
     }
 
     void Update()
@@ -62,10 +78,25 @@ public class Boss : MonoBehaviour, IHittable, IResettable
             Shoot(_player);
         }
     }
-
+    /// <summary>
+    /// プレイヤーの弾が当たったときの処理
+    /// </summary>
+    /// <param name="bullet"></param>
     public void OnHit(Bullet bullet)
     {
-        throw new System.NotImplementedException();
+        _currentHitCount++;
+        Debug.Log(_currentHitCount);
+        bullet.gameObject.SetActive(false);
+
+        if (_currentHitCount >= _hp)
+        {
+            Die();
+        }
+    }
+
+    public void Die()
+    {
+        gameObject.SetActive(false);
     }
 
     public void Shoot(PlayerHit player)
@@ -77,12 +108,19 @@ public class Boss : MonoBehaviour, IHittable, IResettable
         bullet.Init(player.transform.position);
     }
 
-    public void SaveInitialState()
+    public void SaveInitialState()//初期化の保存
     {
-
+        _initialPos = _tr.position;
+        _initialDirection = _direction;
+        _currentHitCount = 0;
     }
-    public void ResetToInitialState()
+    public void ResetToInitialState()//初期化するもの
     {
-       
+        _tr.position = _initialPos;
+        _direction = _initialDirection;
+        _currentHitCount = 0;
+        _fireTimer = 0f;
+
+        gameObject.SetActive(true);
     }
 }

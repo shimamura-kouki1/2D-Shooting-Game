@@ -9,17 +9,20 @@ public class HitManager : MonoBehaviour, IResettable
 
     public List<Bullet> _bullet = new List<Bullet>();
     public List<Enemy2> _enemy = new List<Enemy2>();
+    public List<Boss> _boss = new List<Boss>();
 
     [SerializeField] private ScoreManager _scoreManager;
 
-    private void Awake()
+    private void OnEnable()
     {
         Instance = this;
         ResettableRegistry.Register(this);//ƒŠƒZƒbƒg‘ÎÛ‚É“o˜^
+        
     }
     void OnDestroy()
     {
         ResettableRegistry.Unregister(this);
+        
     }
     void Update()
     {
@@ -56,6 +59,23 @@ public class HitManager : MonoBehaviour, IResettable
                     bullet.ReturnPool();
 
                     break;
+                }
+            }
+            for (int b = _boss.Count - 1; b >= 0; b--)
+            {
+                Boss boss = _boss[b];
+                Vector2 bossPos = boss.transform.position;
+
+                Vector2 distance = bulletPos - bossPos;
+
+                bool hit =
+                    Mathf.Abs(distance.x) < boss._halfWidth &&
+                    Mathf.Abs(distance.y) < boss._halfHeight;
+
+                if (hit)
+                {
+                    boss.OnHit(bullet);
+                    bullet.ReturnPool();
                 }
             }
         }

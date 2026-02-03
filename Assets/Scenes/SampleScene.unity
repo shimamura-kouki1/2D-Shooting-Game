@@ -4224,6 +4224,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bullet: []
   _enemy: []
+  _boss: []
   _scoreManager: {fileID: 741954875}
 --- !u!1 &1828699787
 GameObject:
@@ -4256,13 +4257,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec6e72aa50c62b64f8361bc92dc4a0b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyMove: 2
+  _enemyMove: 0
   maxY: 3.5
   miniY: -3.5
   _bulletPool: {fileID: 1888840395}
   _firePoint: {fileID: 1828699790}
   _player: {fileID: 545753736}
   _fireInterval: 1.5
+  _hp: 1
+  _halfWidth: 1
+  _halfHeight: 2
 --- !u!212 &1828699789
 SpriteRenderer:
   m_ObjectHideFlags: 0
