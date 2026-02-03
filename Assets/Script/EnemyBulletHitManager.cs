@@ -1,10 +1,39 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBulletHitManager : MonoBehaviour, IHitSystem
+public class EnemyBulletHitManager : MonoBehaviour, IHitSystem, IResettable
 {
-    [SerializeField] public List<EnemyBullet> _bullet;
-    [SerializeField] public PlayerHit _player;
+    public static EnemyBulletHitManager Instance;
+
+    [SerializeField] public List<EnemyBullet> _bullet = new();
+    [SerializeField] private PlayerHit _player;
+
+    private void Awake()
+    {
+        Instance = this;
+        ResettableRegistry.Register(this);//リセット対象に登録
+    }
+    void OnDestroy()
+    {
+        ResettableRegistry.Unregister(this);
+    }
+    
+    void Update()
+    {
+        if (GameManager.Instance.CurrentState != GameState.Playing)
+            return;
+        HitCheck();
+    }
+    public void RegisterBullet(EnemyBullet bullet)
+    {
+        if (!_bullet.Contains(bullet))
+            _bullet.Add(bullet);
+    }
+
+    public void UnregisterBullet(EnemyBullet bullet)
+    {
+        _bullet.Remove(bullet);
+    }
 
     public void HitCheck()
     {
@@ -31,5 +60,17 @@ public class EnemyBulletHitManager : MonoBehaviour, IHitSystem
             }
         }
     }
+    public void SaveInitialState()
+    {
+        return;
+    }
+    /// <summary>
+    /// タイトルに戻ったときの初期化
+    /// </summary>
+    public void ResetToInitialState()
+    {
+        _bullet.Clear();
+    }
 }
+
 

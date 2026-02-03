@@ -25,7 +25,7 @@ public class EnemyBulletPool : MonoBehaviour
         enemy.SetActive(false);
         return enemy;
     }
-    public GameObject EnemyBulletGet()//Žæ‚èo‚µ
+    public GameObject GetEnemyBullet()//Žæ‚èo‚µ
     {
         GameObject enemyBulletGet = _pool.Count >0 ? _pool.Dequeue() : CreateEnemyBullet();
 

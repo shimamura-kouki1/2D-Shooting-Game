@@ -5,12 +5,10 @@ using System.Collections.Generic;
 /// </summary>
 public class HitManager : MonoBehaviour, IResettable
 {
-    public static HitManager Instance;
+    public static HitManager Instance;//シングルトン
 
     public List<Bullet> _bullet = new List<Bullet>();
     public List<Enemy2> _enemy = new List<Enemy2>();
-
-    private Transform _tr;
 
     [SerializeField] private ScoreManager _scoreManager;
 
@@ -18,7 +16,6 @@ public class HitManager : MonoBehaviour, IResettable
     {
         Instance = this;
         ResettableRegistry.Register(this);//リセット対象に登録
-        _tr = GetComponent<Transform>();
     }
     void OnDestroy()
     {
@@ -30,6 +27,7 @@ public class HitManager : MonoBehaviour, IResettable
             return;
         HitCheck();
     }
+
     private void HitCheck()
     {
         for (int i = _bullet.Count - 1; i >= 0; i--)//foreachだと途中でリストが変わるからエラーになる/変わっても後ろから検証してるから検証ミスが起きない
@@ -76,11 +74,6 @@ public class HitManager : MonoBehaviour, IResettable
     {
         _bullet.Clear();
         _enemy.Clear();
-        foreach (var enemy in FindObjectsOfType<Enemy2>())
-        {
-            if (enemy.gameObject.activeInHierarchy)
-                _enemy.Add(enemy);
-        }
     }
     /// <summary>
     /// HitManagerへの登録

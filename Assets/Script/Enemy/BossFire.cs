@@ -18,7 +18,7 @@ public class BossFire : MonoBehaviour
     private void BoosFireAtPlayer()
     {
         Vector3 direction = (transform.position - _playerPos.position ).normalized;
-        var bullet = _enemybulletPool.EnemyBulletGet();
+        var bullet = _enemybulletPool.GetEnemyBullet();
         bullet.transform.position = transform.position;
     }
 }

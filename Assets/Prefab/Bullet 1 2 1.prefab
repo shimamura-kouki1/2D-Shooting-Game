@@ -122,3 +122,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4f8e6126b338ea4cbb642a494891298, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bulletSpeesd: 5
+  _maxReturnDistance: 15
