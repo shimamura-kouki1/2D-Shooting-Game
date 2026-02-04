@@ -1,3 +1,4 @@
+using System;
 using System.Buffers.Text;
 using TMPro;
 using UnityEngine;
@@ -5,6 +6,8 @@ using UnityEngine;
 
 public class Boss : MonoBehaviour, IHittable, IResettable
 {
+    public event Action OnBossDeath;
+
     [Header("ˆÚ“®")]
     [SerializeField] private float _enemyMove = 2f;
     private int _direction = 1;
@@ -101,7 +104,9 @@ public class Boss : MonoBehaviour, IHittable, IResettable
 
     public void Die()
     {
+        OnBossDeath?.Invoke();
         gameObject.SetActive(false);
+
     }
 
     public void Shoot(PlayerHit player)

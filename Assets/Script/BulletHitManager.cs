@@ -43,7 +43,6 @@ public class BulletHitManager : MonoBehaviour, IResettable, IHitSystem
 
     public void HitCheck()
     {
-        Debug.Log("aaa");
         for (int i = _enemyBullet.Count - 1; i >= 0; i--)
         {
             EnemyBullet enemyBullet = _enemyBullet[i];
@@ -58,7 +57,6 @@ public class BulletHitManager : MonoBehaviour, IResettable, IHitSystem
 
                 bool HitDistance = Mathf.Abs(distance.x) < enemyBullet._halfWidth&&
                                    Mathf.Abs(distance.y) < enemyBullet._halfHeight;
-                Debug.Log("eeee");
                 if(HitDistance)
                 {
                     enemyBullet.ReturnPool();

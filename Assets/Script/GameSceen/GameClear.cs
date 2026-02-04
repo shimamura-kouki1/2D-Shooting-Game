@@ -1,21 +1,32 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class GameClearUI : MonoBehaviour
 {
-    void Start()
-    {
-        
-    }
+    public static GameClearUI Instance;
+    [SerializeField] private ScoreManager _scoreManager;
+    [SerializeField] private Boss _boss;
 
-    void Update()
+    private void Start()
     {
-        
+        if (_boss != null)
+            _boss.OnBossDeath += OnBossDeth;
     }
-
-    public void OnGameClear()
+    private void OnDestroy()
     {
-        GameManager.Instance.SetState(GameState.GameOver);
+        if (_boss != null)
+            _boss.OnBossDeath -= OnBossDeth;
+    }
+    private void Awake()
+    {
+        Instance = this;
+    }
+    public void OnBossDeth()
+    {
+        Debug.Log("!!!");
+        GameManager.Instance.SetState(GameState.GamneClear);
+        _scoreManager.SaveHightScore();
         StartCoroutine(GamaClearSequence());
     }
     private IEnumerator GamaClearSequence()

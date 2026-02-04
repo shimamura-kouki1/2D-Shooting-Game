@@ -29,7 +29,6 @@ public class MP : MonoBehaviour
         _mp += _mpHeelTime * Time.deltaTime;
         _mp = Mathf.Min(_mp, _maxMp);
         UIMpChanged();
-        Debug.Log(_mp);
     }
     /// <summary>
     /// uŠÔˆÚ“®‚ÅMP‰ñ•œ
