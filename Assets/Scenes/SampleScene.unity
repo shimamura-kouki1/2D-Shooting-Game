@@ -3497,6 +3497,7 @@ MonoBehaviour:
   _pauseUI: {fileID: 962888727}
   _playUI: {fileID: 2050877331}
   _gameOvare: {fileID: 1506820351}
+  _gameClear: {fileID: 0}
 --- !u!1001 &1530572129
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4282,6 +4283,8 @@ MonoBehaviour:
   _hp: 1
   _halfWidth: 1
   _halfHeight: 2
+  _spawnX: 10
+  _spawuY: 0
 --- !u!212 &1828699789
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4575,6 +4578,8 @@ MonoBehaviour:
   - {fileID: 505868401}
   - {fileID: 415226352}
   _spawnInterval: 1
+  _spawnCount: 4
+  _boss: {fileID: 1828699788}
 --- !u!114 &1888840394
 MonoBehaviour:
   m_ObjectHideFlags: 0

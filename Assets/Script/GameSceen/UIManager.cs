@@ -7,6 +7,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject _pauseUI;
     [SerializeField] private GameObject _playUI;
     [SerializeField] private GameObject _gameOvare;
+    [SerializeField] private GameObject _gameClear;
     private GameState _presentState;
 
     private void Start()
@@ -32,5 +33,6 @@ public class UIManager : MonoBehaviour
         _pauseUI.SetActive(gameState == GameState.Pause);
         _playUI.SetActive(gameState == GameState.Playing);
         _gameOvare.SetActive(gameState == GameState.GameOver);
+        _gameClear.SetActive(gameState == GameState.GamneClear);
     }
 }

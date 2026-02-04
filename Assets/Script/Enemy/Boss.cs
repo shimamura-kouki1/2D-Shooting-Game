@@ -1,3 +1,4 @@
+using System.Buffers.Text;
 using TMPro;
 using UnityEngine;
 
@@ -27,6 +28,9 @@ public class Boss : MonoBehaviour, IHittable, IResettable
     [SerializeField] public float _halfWidth = 1f;
     [SerializeField] public float _halfHeight = 1f;
 
+    [SerializeField] private float _spawnX = 10f;   // 出現するX座標（画面右外）
+    [SerializeField] private float _spawuY = 0;
+
 
     private Transform _tr;
 
@@ -47,29 +51,31 @@ public class Boss : MonoBehaviour, IHittable, IResettable
     private void Awake()
     {
         _tr = transform;
+        
     }
     void Start()
     {
+        gameObject.SetActive(false);
         SaveInitialState();
     }
 
     void Update()
     {
-            //ここにボスの移動処理を書く
-            float Y = _tr.position.y + _enemyMove * _direction * Time.deltaTime;
+        //ここにボスの移動処理を書く
+        float Y = _tr.position.y + _enemyMove * _direction * Time.deltaTime;
 
         if (Y >= maxY)
         {
             Y = maxY;
             _direction = -1;
         }
-        if(Y <= miniY)
+        if (Y <= miniY)
         {
             Y = miniY;
             _direction = 1;
         }
 
-        _tr.position = new Vector3(_tr.position.x,Y,0f);
+        _tr.position = new Vector3(_tr.position.x, Y, 0f);
 
         _fireTimer += Time.deltaTime;
         if (_fireTimer >= _fireInterval)
@@ -88,7 +94,6 @@ public class Boss : MonoBehaviour, IHittable, IResettable
         Debug.Log(_currentHitCount);
         bullet.gameObject.SetActive(false);
 
-        if (_currentHitCount >= _hp)
         {
             Die();
         }
@@ -121,6 +126,6 @@ public class Boss : MonoBehaviour, IHittable, IResettable
         _currentHitCount = 0;
         _fireTimer = 0f;
 
-        gameObject.SetActive(true);
+        gameObject.SetActive(false);
     }
 }

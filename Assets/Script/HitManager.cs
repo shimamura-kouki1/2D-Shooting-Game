@@ -13,6 +13,8 @@ public class HitManager : MonoBehaviour, IResettable
 
     [SerializeField] private ScoreManager _scoreManager;
 
+    public int _enemyCount { get; private set; }
+
     private void OnEnable()
     {
         Instance = this;
@@ -51,6 +53,7 @@ public class HitManager : MonoBehaviour, IResettable
 
                 if (HitDistance)
                 {
+                    _enemyCount++;
                     if (enemy.TryGetComponent<IHittable>(out var hittable))
                     {
                         hittable.OnHit(bullet);
@@ -72,8 +75,10 @@ public class HitManager : MonoBehaviour, IResettable
                     Mathf.Abs(distance.x) < boss._halfWidth &&
                     Mathf.Abs(distance.y) < boss._halfHeight;
 
+                
                 if (hit)
                 {
+                    _enemyCount++;
                     boss.OnHit(bullet);
                     bullet.ReturnPool();
                 }
