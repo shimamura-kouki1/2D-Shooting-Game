@@ -34,6 +34,9 @@ public class Boss : MonoBehaviour, IHittable, IResettable
     [SerializeField] private float _spawnX = 10f;   // 出現するX座標（画面右外）
     [SerializeField] private float _spawuY = 0;
 
+    [Header("爆発エフェクト")]
+    [SerializeField] private Sprite[] _explosion;
+    private bool _isDeath = true;
 
     private Transform _tr;
 
@@ -64,6 +67,7 @@ public class Boss : MonoBehaviour, IHittable, IResettable
 
     void Update()
     {
+        if (!_isDeath) return;
         //ここにボスの移動処理を書く
         float Y = _tr.position.y + _enemyMove * _direction * Time.deltaTime;
 
@@ -106,7 +110,6 @@ public class Boss : MonoBehaviour, IHittable, IResettable
     {
         OnBossDeath?.Invoke();
         gameObject.SetActive(false);
-
     }
 
     public void Shoot(PlayerHit player)

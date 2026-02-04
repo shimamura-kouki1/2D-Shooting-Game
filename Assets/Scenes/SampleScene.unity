@@ -4513,6 +4513,13 @@ MonoBehaviour:
   _halfHeight: 2
   _spawnX: 10
   _spawuY: 0
+  _explosion:
+  - {fileID: 1040716370, guid: e40cf1d2a1a4d534d90e37305c6fdb32, type: 3}
+  - {fileID: -1713315322, guid: e40cf1d2a1a4d534d90e37305c6fdb32, type: 3}
+  - {fileID: -1882800638, guid: e40cf1d2a1a4d534d90e37305c6fdb32, type: 3}
+  - {fileID: -1059390810, guid: e40cf1d2a1a4d534d90e37305c6fdb32, type: 3}
+  - {fileID: -599227979, guid: e40cf1d2a1a4d534d90e37305c6fdb32, type: 3}
+  - {fileID: -899051092, guid: e40cf1d2a1a4d534d90e37305c6fdb32, type: 3}
 --- !u!212 &1828699789
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4557,9 +4564,9 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: -958428426, guid: b615071bae207fd4399407110ff6ad32, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 1, y: 1}
@@ -4578,7 +4585,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 5.99, y: 8.31, z: -0.5908595}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}

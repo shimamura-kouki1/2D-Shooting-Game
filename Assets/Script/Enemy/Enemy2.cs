@@ -213,6 +213,7 @@ public class Enemy2 : MonoBehaviour, IHittable
         _wasActive = false;
         _deathIndex = 0;
         _deathTimer = 0f;
+        _renderer.sprite = _deathSprites[0];
 
         _tr.position = _stratPos;
         gameObject.SetActive(false);
