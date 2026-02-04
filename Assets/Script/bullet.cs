@@ -10,9 +10,13 @@ public class Bullet : MonoBehaviour
     [SerializeField] private float _returnX;//ˆÚ“®ŒÀŠE
     [SerializeField] private Vector3 _returnPos;//‹A‚éˆÊ’u
 
+    [SerializeField] public float _halfWidth = 1f;
+    [SerializeField] public float _halfHeight = 1f;
+
     public void OnEnable()
     {
         HitManager.Instance._bullet.Add(this);//ƒŠƒXƒg‚É“o˜^
+        BulletHitManager.Instance._playerBullet.Add(this);
     }
     public void OnDisable()
     {
@@ -20,6 +24,8 @@ public class Bullet : MonoBehaviour
         {
             HitManager.Instance._bullet.Remove(this);
         }
+        if (BulletHitManager.Instance != null)
+            BulletHitManager.Instance._playerBullet.Remove(this);
     }
 
     void Start()

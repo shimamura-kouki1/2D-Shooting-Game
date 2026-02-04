@@ -124,4 +124,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bulletSpeesd: 5
   _returnX: 23.48782
-  _returnPos: {x: 10, y: 0, z: 0}
+  _returnPos: {x: 15, y: 0, z: 0}
+  _halfWidth: 1
+  _halfHeight: 1

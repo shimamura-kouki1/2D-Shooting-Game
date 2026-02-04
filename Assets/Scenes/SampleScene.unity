@@ -2971,11 +2971,11 @@ Transform:
   m_Children:
   - {fileID: 1518438525}
   - {fileID: 1823243505}
+  - {fileID: 81895056}
   - {fileID: 1205401773}
   - {fileID: 725112441}
   - {fileID: 1537092424}
   - {fileID: 741954874}
-  - {fileID: 81895056}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1384630803 stripped
@@ -4188,6 +4188,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1823243505}
   - component: {fileID: 1823243506}
+  - component: {fileID: 1823243507}
   m_Layer: 0
   m_Name: HitManager
   m_TagString: Untagged
@@ -4226,6 +4227,20 @@ MonoBehaviour:
   _enemy: []
   _boss: []
   _scoreManager: {fileID: 741954875}
+--- !u!114 &1823243507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1823243503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1c4ea4722917a647902439d10962d1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enemyBullet: []
+  _playerBullet: []
 --- !u!1 &1828699787
 GameObject:
   m_ObjectHideFlags: 0

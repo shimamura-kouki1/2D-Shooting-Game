@@ -54,7 +54,7 @@ public class EnemyBulletHitManager : MonoBehaviour, IHitSystem, IResettable
             if (HitDistance)
             {
                 _player.Die();
-                //bullet.ReturnPool();
+                bullet.ReturnPool();
 
                 break;
             }
