@@ -1,25 +1,31 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System;
 /// <summary>
 /// 弾とエネミーのヒット判定
 /// </summary>
 public class HitManager : MonoBehaviour, IResettable
 {
     public static HitManager Instance;//シングルトン
+    public event Action OnRareEnemySpawn;
+    
 
     public List<Bullet> _bullet = new List<Bullet>();
     public List<Enemy2> _enemy = new List<Enemy2>();
     public List<Boss> _boss = new List<Boss>();
 
-    [SerializeField] private ScoreManager _scoreManager;
-
     public int _enemyCount { get; private set; }
+
+    [SerializeField] private ScoreManager _scoreManager;
+    private bool _rareEnemyTriggered = false;
+
+
 
     private void OnEnable()
     {
         Instance = this;
         ResettableRegistry.Register(this);//リセット対象に登録
-        
+
     }
     void OnDestroy()
     {
@@ -54,6 +60,12 @@ public class HitManager : MonoBehaviour, IResettable
                 if (HitDistance)
                 {
                     _enemyCount++;
+
+                    if(!_rareEnemyTriggered && _enemyCount == 15)
+                    {
+                        _rareEnemyTriggered = true;
+                        OnRareEnemySpawn?.Invoke();
+                    }
                     if (enemy.TryGetComponent<IHittable>(out var hittable))
                     {
                         hittable.OnHit(bullet);

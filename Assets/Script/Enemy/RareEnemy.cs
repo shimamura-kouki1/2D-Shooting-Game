@@ -1,16 +1,14 @@
 using System;
-using System.Buffers.Text;
-using TMPro;
 using UnityEngine;
 
-
-public class Boss : MonoBehaviour, IHittable, IResettable
+public class RareEnemy : MonoBehaviour, IHittable, IResettable
 {
-    public event Action OnBossDeath;
+    public event Action OnSpawneRareEnemy;
 
     [Header("移動")]
     [SerializeField] private float _enemyMove = 2f;
     private int _direction = 1;
+    [SerializeField] private Vector3 _spawnPos;
 
     [Header("移動制限")]
     [SerializeField] private float maxY;
@@ -23,41 +21,31 @@ public class Boss : MonoBehaviour, IHittable, IResettable
     [SerializeField] private float _fireInterval = 1.5f;
     private float _fireTimer;
 
-    [Header("HP")]
-    [SerializeField] private int _hp;
-    private int _currentHitCount;
-
     [Header("当たり判定")]
     [SerializeField] public float _halfWidth = 1f;
     [SerializeField] public float _halfHeight = 1f;
 
-    [SerializeField] private float _spawnX = 10f;   // 出現するX座標（画面右外）
-    [SerializeField] private float _spawuY = 0;
-
-    [Header("爆発エフェクト")]
-    [SerializeField] private Sprite[] _explosion;
-    private bool _isDeath = true;
-
     private Transform _tr;
 
-    //初期状態の保存用
     private Vector3 _initialPos;
     private int _initialDirection;
+    private bool _isDeath = true;
 
+    private Vector3 _stratPos = new Vector3(30f, 30f, 30f);
     private void OnEnable()
     {
         ResettableRegistry.Register(this);
-        HitManager.Instance._boss.Add(this);
+        _tr = transform;
+
+        if (HitManager.Instance != null)
+            HitManager.Instance.OnRareEnemySpawn += Spawn;
     }
     private void OnDestroy()
     {
         ResettableRegistry.Unregister(this);
-        HitManager.Instance._boss.Remove(this);
-    }
-    private void Awake()
-    {
-        _tr = transform;
-        
+
+        if (HitManager.Instance != null)
+            HitManager.Instance.OnRareEnemySpawn -= Spawn;
     }
     void Start()
     {
@@ -65,10 +53,11 @@ public class Boss : MonoBehaviour, IHittable, IResettable
         SaveInitialState();
     }
 
+    // Update is called once per frame
     void Update()
     {
         if (!_isDeath) return;
-        //ここにボスの移動処理を書く
+
         float Y = _tr.position.y + _enemyMove * _direction * Time.deltaTime;
 
         if (Y >= maxY)
@@ -83,34 +72,28 @@ public class Boss : MonoBehaviour, IHittable, IResettable
         }
 
         _tr.position = new Vector3(_tr.position.x, Y, 0f);
-
         _fireTimer += Time.deltaTime;
         if (_fireTimer >= _fireInterval)
         {
             _fireTimer = 0f;
             Shoot(_player);
         }
+
     }
-    /// <summary>
-    /// プレイヤーの弾が当たったときの処理
-    /// </summary>
-    /// <param name="bullet"></param>
+    public void Spawn()
+    {
+        _isDeath = false;
+        _tr.position = _spawnPos;
+    }
     public void OnHit(Bullet bullet)
     {
-        _currentHitCount++;
         bullet.gameObject.SetActive(false);
-
-        {
-            Die();
-        }
+        Die();
     }
-
     public void Die()
     {
-        OnBossDeath?.Invoke();
-        gameObject.SetActive(false);
+        SaveInitialState();
     }
-
     public void Shoot(PlayerHit player)
     {
         GameObject bulletObj = _bulletPool.GetEnemyBullet();
@@ -119,20 +102,15 @@ public class Boss : MonoBehaviour, IHittable, IResettable
         bullet.transform.position = _firePoint.position;
         bullet.Init(player.transform.position);
     }
-
     public void SaveInitialState()//初期化の保存
     {
         _initialPos = _tr.position;
         _initialDirection = _direction;
-        _currentHitCount = 0;
     }
     public void ResetToInitialState()//初期化するもの
     {
         _tr.position = _initialPos;
         _direction = _initialDirection;
-        _currentHitCount = 0;
         _fireTimer = 0f;
-
-        gameObject.SetActive(false);
     }
 }
