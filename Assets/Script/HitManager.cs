@@ -112,6 +112,7 @@ public class HitManager : MonoBehaviour, IResettable
         _bullet.Clear();
         _enemy.Clear();
         _enemyCount = 0;
+        _rareEnemyTriggered = false;
     }
     /// <summary>
     /// HitManager‚Ö‚Ì“o˜^
